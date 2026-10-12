@@ -1,5 +1,11 @@
 # Mightora Roadmaps
 
+[![Build & tests](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/pages.yml/badge.svg?branch=main)](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/pages.yml)
+[![CodeQL analysis](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/codeql.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
+**[Use the editor](https://roadmaps.mightora.io/)** · **[Source code](https://github.com/mightora/roadmaps.mightora.io)** · **[Report a bug](https://github.com/mightora/roadmaps.mightora.io/issues/new/choose)** · **[Suggest a feature](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=feature_request.yml)** · **[Contribute](CONTRIBUTING.md)**
+
 A free, open-source browser roadmap editor with editable workstreams, quarters, activities and dependencies. Import/export Markdown and CSV, or share a read-only snapshot link. Your workspace saves locally in the browser; no account is required.
 
 ## Industry examples
@@ -36,6 +42,18 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 - Local history, templates, portfolio summaries and SVG/print exports.
 - Crawlable guide and example pages, structured app metadata, sitemap and social metadata.
 - Public example catalog, JSON Schema, agent data guide and `llms.txt` discovery aid.
+
+## Community, openness and trust
+
+This is a community project: **all editing features are free**, there are no accounts, and changes are reviewed in public pull requests. You can [report bugs](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=bug_report.yml), [propose features](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=feature_request.yml), or [contribute an industry example](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=industry_example.yml). Start with [CONTRIBUTING.md](CONTRIBUTING.md).
+
+- [Build and test results](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/pages.yml) and [CodeQL analysis](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/codeql.yml) are public. Badges show workflow outcomes, **not a guarantee of security**.
+- [Security policy](SECURITY.md): disclose vulnerabilities privately, not through public issues.
+- [Privacy and data handling](PRIVACY.md): browser-local workspace data, share-link limitations and third-party requests.
+- [Code of conduct](CODE_OF_CONDUCT.md), [governance](GOVERNANCE.md), [accessibility](ACCESSIBILITY.md), and [support](SUPPORT.md).
+- [Architecture and security boundaries](docs/ARCHITECTURE.md) describe how the site works and what remains to be improved.
+
+The project is maintained by volunteers without guaranteed response times. The MIT license is permissive but does not imply an audit, endorsement, warranty, or trademark licence.
 
 ## Data and sharing
 

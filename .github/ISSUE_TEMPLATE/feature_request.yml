@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest a useful improvement for the community
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the user need rather than only the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Suggested approach
+      description: What would a good experience look like?
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives or examples
+      description: Optional links, sketches or other tools.
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Would you like to help?
+      options:
+        - label: I may be able to help design, test or implement this.

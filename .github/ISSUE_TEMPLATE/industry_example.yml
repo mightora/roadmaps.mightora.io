@@ -1,0 +1,37 @@
+name: New industry example
+description: Suggest or contribute a roadmap example for another sector
+title: "[Example]: "
+body:
+  - type: input
+    id: industry
+    attributes:
+      label: Industry or sector
+      placeholder: Healthcare, education, agriculture...
+    validations:
+      required: true
+  - type: textarea
+    id: audience
+    attributes:
+      label: Who is this roadmap for, and what should it help them achieve?
+    validations:
+      required: true
+  - type: textarea
+    id: workstreams
+    attributes:
+      label: Suggested workstreams and key milestones
+      description: Aim for a clear illustrative four-quarter starter.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Sources and assumptions
+      description: Identify what is illustrative and link reliable sources for factual claims.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Contribution guidance
+      options:
+        - label: I will not include client data, personal information or credentials.
+          required: true
+        - label: I can contribute a JSON example through a pull request.

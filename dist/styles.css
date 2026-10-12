@@ -7,3 +7,20 @@
 @media print{.sidebar,.topbar,.heading-actions,.panel-toolbar,.bottom-note,.overlay,.drawer,.toast{display:none!important}main{margin:0;width:100%;padding:0}.canvas{max-height:none;overflow:visible}.board{--col:115px;--track:140px;font-size:8px}.activity-card{break-inside:avoid}.cell-add{display:none}.page-heading{padding:10px 0}.stats{margin-bottom:12px}.card-meta{display:none}.track-label,.period,.board-corner{position:static}.panel-footer{display:none}}
 
 .discovery-content{max-width:1000px;margin:30px auto;padding:24px;line-height:1.7}.discovery-content nav{display:flex;flex-wrap:wrap;gap:12px}.discovery-content nav a{padding:10px 14px;border:1px solid #b8c9be;border-radius:8px}.discovery-content a:focus-visible{outline:3px solid #059669;outline-offset:4px}.example-preview{padding:16px;border:1px solid #b8c9be;border-radius:8px;margin:16px 0}
+
+/* Public open-source and community links: accessible without signing in. */
+.community-hub{border-top:1px solid var(--border,#e3e8e0);background:var(--bg-card,#fff);color:var(--text,#233c34)}
+.community-hub-inner{max-width:1100px;margin:0 auto;padding:40px 34px}
+.community-eyebrow{font-size:11px;font-weight:700;letter-spacing:.12em;color:#047857;margin:0 0 12px}
+.community-hub h2{font-size:clamp(22px,2.5vw,32px);margin:0 0 12px}
+.community-intro{font-size:14px;line-height:1.7;max-width:730px;color:var(--text-muted,#6b7280)}
+.community-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:26px 0}
+.community-actions a{display:flex;flex-direction:column;gap:7px;padding:18px;border:1px solid var(--border,#e3e8e0);border-radius:10px;text-decoration:none;background:var(--bg,#f9fafb)}
+.community-actions a:hover{border-color:#047857;background:#f0fdf4}
+.community-actions strong{font-size:14px;color:var(--text,#233c34)}
+.community-actions span{font-size:12px;line-height:1.5;color:var(--text-muted,#6b7280)}
+.community-trust,.community-data-note{font-size:12px;line-height:1.8;color:var(--text-muted,#6b7280)}
+.community-trust a{color:#047857;text-underline-offset:3px}
+.community-hub a:focus-visible{outline:3px solid #047857;outline-offset:4px}
+@media(max-width:600px){.community-hub-inner{padding:28px 20px}.community-actions{grid-template-columns:1fr}}
+@media print{.community-hub{display:none}}
