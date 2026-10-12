@@ -1,10 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import vm from 'node:vm';
-import { readFile } from 'node:fs/promises';
-test('Footer compatibility repair is limited to the Mightora YAML resource',async()=>{
-  const script=await readFile(new URL('../dist/brand-compat.js',import.meta.url),'utf8');const malformed='sections:\n  - title: Site\n    links: []\n    - title: Mightora\n      column: 1\n      links: []\n  # Column 2\n  - title: Tools\n    links: []';
-  const context={window:{fetch:async()=>new Response(malformed)},Response};vm.runInNewContext(script,context);
-  const repaired=await(await context.window.fetch('https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/footer.yaml')).text();assert.match(repaired,/\n  - title: Mightora\n    column: 1/);assert.match(repaired,/\n  - title: Tools\n    links: \[\]/);
-  assert.equal(await(await context.window.fetch('/api/me')).text(),malformed);
+import {readFile} from 'node:fs/promises';
+
+test('Mightora footer loads its validated local configuration without a global fetch shim',async()=>{
+  const html=await readFile(new URL('../dist/index.html',import.meta.url),'utf8');
+  const config=JSON.parse(await readFile(new URL('../dist/footer.json',import.meta.url),'utf8'));
+  assert.match(html,/shared-ui@main\/components\.js/);
+  assert.match(html,/<mightora-footer yaml-url="\.\/footer\.json">/);
+  assert.doesNotMatch(html,/brand-compat\.js/);
+  assert.ok(config.sections.some(section=>section.title==='Roadmaps'));
+  assert.ok(config.sections.some(section=>section.title==='Contribute'));
+  assert.ok(config.sections.some(section=>section.title==='Mightora'));
 });

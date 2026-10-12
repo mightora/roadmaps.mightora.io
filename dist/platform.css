@@ -10,3 +10,33 @@ body{display:block;background:var(--bg,#f9fafb);color:var(--text,#111827)}:where
 .workstream-list{display:flex;flex-direction:column;gap:13px}.workstream-editor{background:var(--bg-card);border:1px solid var(--border);border-radius:9px;padding:18px}.workstream-editor form{display:flex;gap:15px;align-items:flex-end;flex-wrap:wrap}.workstream-position{font-size:13px;color:var(--text-muted);padding-bottom:13px}.workstream-editor .field{margin:0}.workstream-name{flex:1;min-width:170px}.workstream-colour{width:65px}.workstream-colour input{height:41px;padding:4px}.workstream-count{font-size:11px;color:var(--text-muted);padding-bottom:13px;white-space:nowrap}.workstream-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap;margin-top:13px}.backup-counts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}.backup-counts span{font-size:11px;padding:9px;border:1px solid var(--border);border-radius:6px;background:var(--bg-card)}.backup-counts strong{font-size:17px;margin-right:6px}.feature-note ul{margin:15px 0 0;padding-left:20px;font-size:11px}.feature-note li{margin:5px 0}.feature-note p{font-size:12px;margin:9px 0}
 @media(max-width:600px){.workstream-editor{padding:15px}.workstream-position{display:none}.workstream-name{min-width:100%;flex:1}.workstream-actions{justify-content:flex-start}.backup-counts{grid-template-columns:repeat(2,1fr)}}
 @media print{#brand-header,.runtime-banner,.roadmap-picker,.account-controls,#brand-bottom,#saved-views,.sidebar,.platform-dialog{display:none!important}#application-shell{display:block}main{margin:0;width:100%}.canvas{max-height:none}.board{--col:125px;--track:155px}.activity-title{font-size:8px}.track-name{font-size:9px}.period small{font-size:7px}}
+
+/* The public footer has a local, validated configuration. Keep its content
+   aligned with the editor and let its columns reflow before they become cramped. */
+#brand-bottom .site-footer .container,
+#brand-bottom mightora-footer .container{width:100%;max-width:1200px;margin-inline:auto;padding-inline:clamp(20px,3vw,40px)}
+#brand-bottom .footer-main{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(16px,2.5vw,36px)}
+#brand-bottom .footer-col{min-width:0}
+#brand-bottom .footer-links{padding:0;margin:0;list-style:none}
+#brand-bottom .footer-links a{display:inline-block;line-height:1.6;overflow-wrap:anywhere}
+#brand-bottom .footer-brands{align-items:stretch}
+#brand-bottom .footer-brand{flex:1 1 210px;min-width:0}
+#brand-bottom .footer-brand-desc{line-height:1.5}
+#brand-bottom .footer-bottom{gap:14px}
+#brand-bottom .footer-bottom-links{display:flex;flex-wrap:wrap;gap:8px 18px}
+#brand-bottom .site-footer a:focus-visible{outline:3px solid #a7f3d0;outline-offset:3px}
+/* The SEO introduction also sits below the fixed editor sidebar. */
+.discovery-content{max-width:1200px;margin:30px 24px 30px 232px;padding:28px clamp(20px,3vw,40px)}
+@media(max-width:1200px){
+  #brand-bottom .footer-main{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .discovery-content{margin-left:190px}
+}
+@media(max-width:900px){
+  #brand-bottom .footer-main{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .discovery-content{margin:22px 0;padding:20px}
+  #brand-bottom .site-footer .container,
+  #brand-bottom mightora-footer .container{padding-inline:20px}
+}
+@media print{.discovery-content{display:none}}
