@@ -1,0 +1,50 @@
+name: Bug report
+description: Report a reproducible problem in Mightora Roadmaps
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please do not include private roadmap data, credentials or security vulnerabilities. For vulnerabilities, see SECURITY.md.
+  - type: input
+    id: summary
+    attributes:
+      label: What went wrong?
+      placeholder: Briefly describe the problem
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Use a public example or anonymised data wherever possible.
+      placeholder: "1. Open the editor\n2. ...\n3. ..."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What happened instead?
+      description: Error text or a screenshot with any personal data removed.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Browser, device and site URL
+      placeholder: Firefox 130 / Windows / https://roadmaps.mightora.io
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Before submitting
+      options:
+        - label: I removed private data, tokens and sensitive share links.
+          required: true
+        - label: This is not a security vulnerability (those must be reported privately).
+          required: true
