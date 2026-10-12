@@ -1,0 +1,99 @@
+{
+  "brands": [
+    {
+      "name": "Mightora",
+      "url": "https://mightora.io",
+      "logo": "https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png",
+      "description": "Free tools and open projects"
+    },
+    {
+      "name": "Tech Tweedie",
+      "url": "https://techtweedie.github.io",
+      "logo": "https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/TechTweedie_bw.png",
+      "description": "Technical guides and tutorials"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Roadmaps",
+      "column": 1,
+      "position": 1,
+      "links": [
+        {
+          "name": "Open the editor",
+          "url": "../"
+        },
+        {
+          "name": "Documentation",
+          "url": "./"
+        },
+        {
+          "name": "Industry examples",
+          "url": "../examples.json"
+        },
+        {
+          "name": "Agent data guide",
+          "url": "../agent-guide.md"
+        }
+      ]
+    },
+    {
+      "title": "Contribute",
+      "column": 2,
+      "position": 1,
+      "links": [
+        {
+          "name": "Source code",
+          "url": "https://github.com/mightora/roadmaps.mightora.io"
+        },
+        {
+          "name": "Report a bug",
+          "url": "https://github.com/mightora/roadmaps.mightora.io/issues/new?template=bug_report.yml"
+        },
+        {
+          "name": "Suggest a feature",
+          "url": "https://github.com/mightora/roadmaps.mightora.io/issues/new?template=feature_request.yml"
+        },
+        {
+          "name": "Contribution guide",
+          "url": "https://github.com/mightora/roadmaps.mightora.io/blob/main/CONTRIBUTING.md"
+        },
+        {
+          "name": "Build and security checks",
+          "url": "https://github.com/mightora/roadmaps.mightora.io/actions"
+        }
+      ]
+    },
+    {
+      "title": "Mightora",
+      "column": 3,
+      "position": 1,
+      "links": [
+        {
+          "name": "Mightora home",
+          "url": "https://mightora.io"
+        },
+        {
+          "name": "Mightora tools",
+          "url": "https://mightora.io/tools/"
+        },
+        {
+          "name": "Mightora on GitHub",
+          "url": "https://github.com/mightora"
+        },
+        {
+          "name": "Tech Tweedie blog",
+          "url": "https://techtweedie.github.io"
+        },
+        {
+          "name": "Security policy",
+          "url": "https://github.com/mightora/roadmaps.mightora.io/blob/main/SECURITY.md"
+        },
+        {
+          "name": "Privacy information",
+          "url": "https://github.com/mightora/roadmaps.mightora.io/blob/main/PRIVACY.md"
+        }
+      ]
+    }
+  ]
+}
