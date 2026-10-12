@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" fill="none" role="img" aria-labelledby="title desc">
+<title id="title">Activity dependency map</title><desc id="desc">Connected activity cards show work flowing through a series of dependent tasks.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="640" y2="420" gradientUnits="userSpaceOnUse"><stop stop-color="#e7f1e5"/><stop offset="1" stop-color="#f5f8ed"/></linearGradient><filter id="sh" x="-20%" y="-30%" width="140%" height="170%"><feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#2b533a" flood-opacity=".13"/></filter></defs>
+<rect width="640" height="420" rx="24" fill="url(#bg)"/>
+<g fill="none" stroke="#78a48a" stroke-width="4" stroke-linecap="round"><path d="M230 130C275 130 255 214 308 214"/><path d="M230 308C271 308 265 236 308 236"/><path d="M438 226C490 226 467 226 508 226"/></g>
+<g fill="#78a48a"><path d="m299 207 14 7-14 8Z"/><path d="m499 219 14 7-14 8Z"/></g>
+<g filter="url(#sh)"><rect x="65" y="78" width="164" height="100" rx="13" fill="#fff" stroke="#c8ddc7"/><rect x="65" y="256" width="164" height="100" rx="13" fill="#fff" stroke="#c8ddc7"/><rect x="307" y="178" width="131" height="100" rx="13" fill="#fff" stroke="#c8ddc7"/><rect x="505" y="178" width="94" height="100" rx="13" fill="#fff" stroke="#c8ddc7"/></g>
+<g fill="#79a98b"><rect x="65" y="78" width="6" height="100" rx="3"/><rect x="65" y="256" width="6" height="100" rx="3"/><rect x="307" y="178" width="6" height="100" rx="3"/><rect x="505" y="178" width="6" height="100" rx="3"/></g>
+<g font-family="Arial, sans-serif" fill="#244d39" font-weight="700" font-size="14"><text x="87" y="119">Discover</text><text x="87" y="297">Design</text><text x="329" y="219">Build</text><text x="524" y="219">Ship</text></g>
+<g fill="#d8e9d6"><rect x="87" y="133" width="88" height="12" rx="6"/><rect x="87" y="311" width="88" height="12" rx="6"/><rect x="329" y="235" width="73" height="12" rx="6"/><rect x="524" y="235" width="50" height="12" rx="6"/></g>
+<circle cx="230" cy="130" r="6" fill="#579371"/><circle cx="230" cy="308" r="6" fill="#579371"/><circle cx="438" cy="226" r="6" fill="#579371"/>
+</svg>

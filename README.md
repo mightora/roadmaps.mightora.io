@@ -4,7 +4,7 @@
 [![CodeQL analysis](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/mightora/roadmaps.mightora.io/actions/workflows/codeql.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**[Use the editor](https://roadmaps.mightora.io/)** · **[Source code](https://github.com/mightora/roadmaps.mightora.io)** · **[Report a bug](https://github.com/mightora/roadmaps.mightora.io/issues/new/choose)** · **[Suggest a feature](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=feature_request.yml)** · **[Contribute](CONTRIBUTING.md)**
+**[Use the editor](https://roadmaps.mightora.io/)** · **[Documentation](https://roadmaps.mightora.io/docs/)** · **[Source code](https://github.com/mightora/roadmaps.mightora.io)** · **[Report a bug](https://github.com/mightora/roadmaps.mightora.io/issues/new/choose)** · **[Suggest a feature](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=feature_request.yml)** · **[Contribute](CONTRIBUTING.md)**
 
 A free, open-source browser roadmap editor with editable workstreams, quarters, activities and dependencies. Import/export Markdown and CSV, or share a read-only snapshot link. Your workspace saves locally in the browser; no account is required.
 
@@ -38,7 +38,10 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 - Multiple roadmaps, editable workstreams and 4–12 quarters with custom labels.
 - Multiple activities in a cell; cross-workstream prerequisites, cycle prevention and blocker checks.
 - Markdown/CSV roadmap transfers and whole-workspace backups with preview.
+- Copyable, plan-specific browser bookmarks, with recently edited plans in the roadmap library.
+- Polished read-only published roadmap pages with progress, quarter timeline, expandable activity details and copyable self-contained links.
 - Read-only compressed snapshot links and editable recipient copies.
+- Illustrated documentation and SVG graphics across the site.
 - Local history, templates, portfolio summaries and SVG/print exports.
 - Crawlable guide and example pages, structured app metadata, sitemap and social metadata.
 - Public example catalog, JSON Schema, agent data guide and `llms.txt` discovery aid.
@@ -70,3 +73,9 @@ Code and contributed examples are MIT licensed; see [LICENSE](LICENSE). External
 ## Custom domain and browser security
 
 Use **HTTPS** for a custom domain, and enable **Enforce HTTPS** in GitHub Pages once the certificate is ready. `crypto.randomUUID()` is unavailable on HTTP origins in many browsers. The editor uses a cryptographically secure `getRandomValues()` fallback for ID generation, but HTTPS remains the recommended way to access the site. Browser-local workspaces are scoped to the URL origin, so export a Markdown or CSV backup before changing an existing site from HTTP to HTTPS.
+
+## Returning to plans and publishing
+
+Select **Copy plan link** to bookmark a roadmap by its browser-local identifier. This link does not contain data, is not an account or cloud save, and only works in a browser that still has that roadmap in local storage. Export a workspace backup for durable recovery or another device.
+
+Select **Publish** to create a self-contained read-only URL for `published.html`. Recipients see a polished presentation and can save an independent editable copy. Links are not server-hosted records: they cannot be revoked, access-controlled or automatically updated. Republish after changes. The full URL embeds the selected data, so do not include sensitive information. See [the documentation](dist/docs/index.html) and [privacy information](PRIVACY.md).

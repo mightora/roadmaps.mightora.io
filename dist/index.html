@@ -22,7 +22,7 @@
 <!-- discovery-head:end -->
 </head>
 <body>
-  <div id="brand-header"><mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Workspace","url":"#workspace"},{"label":"Data backup","url":"#data"},{"label":"Open source","url":"#open-source"},{"label":"GitHub ↗","url":"https://github.com/mightora/roadmaps.mightora.io","ext":true},{"label":"Mightora.io ↗","url":"https://mightora.io","ext":true}]'></mightora-header></div>
+  <div id="brand-header"><mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Workspace","url":"#workspace"},{"label":"Data backup","url":"./docs/data.html"},{"label":"Documentation","url":"./docs/"},{"label":"Open source","url":"#open-source"},{"label":"GitHub ↗","url":"https://github.com/mightora/roadmaps.mightora.io","ext":true},{"label":"Mightora.io ↗","url":"https://mightora.io","ext":true}]'></mightora-header></div>
   <div id="runtime-banner" class="runtime-banner" hidden></div>
   <section id="auth-screen" class="auth-screen"></section>
   <div id="application-shell" hidden>
@@ -39,18 +39,19 @@
       
       <button data-page="reports" class="nav-item"><span>▥</span> Reports</button>
       <button data-page="data" class="nav-item"><span>⇄</span> Data backup</button>
+      <a href="./docs/" class="nav-item docs-nav-item"><span>?</span> Documentation</a>
     </nav>
     <div class="sidebar-note"><span class="note-symbol">↗</span><strong>Build the capability.<br>Connect the work.</strong><p>A clear path from first principles to repeatable delivery.</p></div>
     <button id="settings" class="nav-item settings"><span>⚙</span> Edit quarters & settings</button>
     <div class="sidebar-footer">MIGHTORA ROADMAP · v0.4</div>
   </aside>
-  <main>
+  <main id="workspace">
     <header class="topbar"><div class="breadcrumb">Local workspace · all features</div><div id="save-indicator" class="save-indicator" role="status">Loading…</div></header>
     <section id="workspace-panel" hidden></section>
     <div id="roadmap-content">
-    <div class="roadmap-picker"><label for="roadmap-select">Roadmap</label><select id="roadmap-select"></select><button id="choose-example" class="text-button">Choose an industry example</button><button id="new-roadmap" class="text-button">+ New roadmap</button><button id="collaboration" class="text-button">Discussion & history</button></div>
+    <div class="roadmap-picker"><label for="roadmap-select">Roadmap</label><select id="roadmap-select"></select><button id="choose-example" class="text-button">Choose an industry example</button><button id="new-roadmap" class="text-button">+ New roadmap</button><button id="save-plan-link" class="text-button" title="Bookmark this editable plan in this browser">⌁ Copy plan link</button><button id="collaboration" class="text-button">Discussion & history</button></div>
     <div id="shared-preview-bar" class="shared-preview-bar" hidden></div>
-    <section class="page-heading"><div><div class="eyebrow">CONNECTED WORKSTREAMS · YOUR ROADMAP</div><h1 id="roadmap-title">Low-code App Factory</h1><p id="subtitle">Loading your roadmap…</p></div><div class="heading-actions"><button id="share-roadmap" class="button">↗ Share link</button><select id="export-format" aria-label="Export format"><option value="md">Markdown</option><option value="csv">CSV</option></select><button id="export" class="button">↓ Export</button><button id="add-activity" class="button primary">+ Add activity</button></div></section>
+    <section class="page-heading"><div><div class="eyebrow">CONNECTED WORKSTREAMS · YOUR ROADMAP</div><h1 id="roadmap-title">Low-code App Factory</h1><p id="subtitle">Loading your roadmap…</p></div><div class="heading-actions"><button id="share-roadmap" class="button">↗ Share snapshot</button><button id="publish-roadmap" class="button publish">✦ Publish</button><select id="export-format" aria-label="Export format"><option value="md">Markdown</option><option value="csv">CSV</option></select><button id="export" class="button">↓ Export</button><button id="add-activity" class="button primary">+ Add activity</button></div></section>
     <section id="stats" class="stats" aria-label="Roadmap summary"></section>
     <section class="roadmap-panel">
       <div class="panel-toolbar"><div class="view-tabs" role="group" aria-label="Roadmap view"><button data-view="roadmap" class="active">Roadmap</button><button data-view="dependencies">Dependencies</button><button data-view="activities">Activities</button></div><div class="toolbar-actions"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Find an activity or owner" aria-label="Search activities"></label><select id="status-filter" aria-label="Filter by status"><option value="">All statuses</option><option>Planned</option><option>In progress</option><option>Done</option><option>On hold</option><option value="blocked">Waiting on dependencies</option><option value="conflict">Schedule conflicts</option></select><button id="density" class="button small">Compact view</button></div></div>
@@ -63,7 +64,18 @@
     </div>
   </main>
   </div>
-  <section class="discovery-content" aria-labelledby="about-roadmaps"><h2 id="about-roadmaps">Free roadmaps for connected work</h2><p>Mightora Roadmaps helps you plan activities across workstreams and quarters, connect dependencies, and share a read-only snapshot with your team. Edit quarter labels, owners and dates; import or export Markdown and CSV. Your workspace saves in this browser, without an account.</p><h3>Start with a simple industry example</h3><p>Each example has four workstreams, four quarters and eight activities. They are illustrative starting points, not verified forecasts or regulatory advice.</p><nav aria-label="Industry examples"><a href="./examples/chemistry.html">Chemistry: Safer coatings: research to market</a><a href="./examples/energy.html">Energy: Community solar feasibility to delivery</a><a href="./examples/manufacturing.html">Manufacturing: Predictive maintenance pilot</a><a href="./examples/power-platform.html">Power Platform: A simple low-code app factory</a></nav><p><a href="./guide.html">How to use the roadmap editor</a> · <a href="./examples.json">Machine-readable example catalog</a> · <a href="./agent-guide.md">Agent data guide</a></p><noscript><p>The editor requires JavaScript. The guide and example pages work without it, and example files can be downloaded directly.</p></noscript></section>
+  <section class="discovery-content" aria-labelledby="about-roadmaps">
+  <div class="discovery-hero"><div><p class="discovery-eyebrow">PLAN · CONNECT · DELIVER</p><h2 id="about-roadmaps">Roadmaps that make the next step clear.</h2><p>Bring workstreams, quarters and dependencies into one beautiful, practical plan. Start from a template, come back to your work later and publish a polished view for your team.</p><a class="button primary" href="./docs/">Explore the documentation →</a></div><img src="./assets/roadmap-journey.svg" alt="Illustrated roadmap with connected activities across four quarters" loading="lazy"></div>
+  <div class="discovery-feature-grid">
+    <article class="discovery-feature"><img src="./assets/save-plan.svg" alt="" loading="lazy"><div><h3>Pick up where you left off</h3><p>Plans save in your browser. Copy a link to your specific plan and return to it later in the same browser.</p><a href="./docs/saving.html">How saved links work →</a></div></article>
+    <article class="discovery-feature"><img src="./assets/publish-preview.svg" alt="" loading="lazy"><div><h3>Publish a better-looking plan</h3><p>Create a read-only roadmap with progress, milestones and a shareable snapshot link.</p><a href="./docs/publishing.html">Learn about publishing →</a></div></article>
+    <article class="discovery-feature"><img src="./assets/dependencies.svg" alt="" loading="lazy"><div><h3>See what depends on what</h3><p>Keep multiple activities per cell and track cross-workstream prerequisites without losing the bigger picture.</p><a href="./docs/editing.html">Learn to connect activities →</a></div></article>
+  </div>
+  <h3>Explore an industry example</h3><p>Each example has four workstreams, four quarters and eight illustrative activities. They are starting points, not verified forecasts or regulatory advice.</p>
+  <nav aria-label="Industry examples"><a href="./examples/chemistry.html">Chemistry: Safer coatings: research to market</a><a href="./examples/energy.html">Energy: Community solar feasibility to delivery</a><a href="./examples/manufacturing.html">Manufacturing: Predictive maintenance pilot</a><a href="./examples/power-platform.html">Power Platform: A simple low-code app factory</a></nav>
+  <p class="discovery-legal">All editing features are free. Editable plans stay in this browser unless exported. Published links contain a copy of the plan data; they are not private or live-synchronised. <a href="./docs/">Documentation</a> · <a href="./guide.html">Quick guide</a> · <a href="./agent-guide.md">Agent data guide</a></p>
+  <noscript><p>The editor requires JavaScript. The documentation and example pages are available without it.</p></noscript>
+</section>
   <div id="brand-bottom"><section id="open-source" class="community-hub" aria-labelledby="community-hub-title">
   <div class="community-hub-inner">
     <p class="community-eyebrow">OPEN SOURCE · BUILT TOGETHER</p>
