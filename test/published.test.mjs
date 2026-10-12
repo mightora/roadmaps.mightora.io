@@ -44,7 +44,7 @@ test('published page, documentation and SVG graphics are present',()=>{
   assert.match(read('dist/docs/index.html'),/Documentation/);
   for(const name of ['roadmap-journey','publish-preview','save-plan','dependencies']){
     const svg=read('dist/assets/'+name+'.svg');
-    assert.ok(svg.includes('</svg>'));
+    assert.ok(svg.includes('<svg') && svg.includes('viewBox='));
     assert.ok(svg.includes('</svg>'));
     assert.doesNotMatch(svg,/<script|onload=|<foreignObject/i);
   }
