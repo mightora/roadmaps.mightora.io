@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="A published, read-only Mightora roadmap with a timeline, activities and dependencies.">
+  <title>Published roadmap | Mightora</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/shared.css">
+  <link rel="stylesheet" href="./published.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/components.js"></script>
+  <script type="module" src="./published.mjs"></script>
+</head>
+<body class="published-page">
+  <mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Editor","url":"./"},{"label":"Documentation","url":"./docs/"},{"label":"Mightora ↗","url":"https://mightora.io","ext":true}]'></mightora-header>
+  <div class="published-toolbar" id="published-actions" hidden>
+    <div><strong>Published snapshot</strong><span>Read-only · changes to the original do not sync</span></div>
+    <div class="published-toolbar-actions">
+      <button type="button" class="published-button" id="copy-published-link">Copy published link</button>
+      <button type="button" class="published-button secondary" id="print-published">Print / PDF</button>
+      <a class="published-button secondary" id="edit-copy" href="./">Save an editable copy</a>
+    </div>
+  </div>
+  <div class="published-copy-feedback"><input id="published-link-field" aria-label="Published URL" readonly hidden><span id="published-copy-status" role="status" aria-live="polite"></span></div>
+  <main id="published-content" class="published-container" aria-live="polite"><p class="published-loading">Preparing your published roadmap…</p></main>
+  <aside class="published-disclaimer">This link contains a self-contained copy of the roadmap. Anyone with the link can read the included information. It is not a live, revocable or access-controlled publication. <a href="./docs/publishing.html">Learn about publishing</a>.</aside>
+  <mightora-footer yaml-url="./footer.json"><div class="container"><div class="footer-bottom"><div class="footer-copy">© <span class="footer-year">2026</span> Mightora Roadmaps · <a href="./docs/">Documentation</a></div><div class="footer-bottom-links"><a href="./">Roadmap editor</a><a href="https://github.com/mightora/roadmaps.mightora.io">Open source ↗</a></div></div></div></mightora-footer>
+  <noscript><p>This published roadmap requires JavaScript to decode its self-contained snapshot. <a href="./">Open the editor</a>.</p></noscript>
+</body>
+</html>
