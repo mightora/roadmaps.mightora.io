@@ -42,6 +42,7 @@ test('published page, documentation and SVG graphics are present',()=>{
   assert.match(read('dist/index.html'),/id="publish-roadmap"/);
   assert.match(read('dist/index.html'),/id="save-plan-link"/);
   assert.match(read('dist/docs/index.html'),/Documentation/);
+  assert.match(read('dist/sitemap.xml'),/docs\\/publishing\\.html/);
   for(const name of ['roadmap-journey','publish-preview','save-plan','dependencies']){
     const svg=read('dist/assets/'+name+'.svg');
     assert.ok(svg.includes('<svg') && svg.includes('viewBox='));

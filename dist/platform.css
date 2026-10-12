@@ -72,3 +72,5 @@ body{display:block;background:var(--bg,#f9fafb);color:var(--text,#111827)}:where
 @media(max-width:1150px){.discovery-feature-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:750px){.discovery-hero{grid-template-columns:1fr}.discovery-hero img{max-height:230px}.discovery-feature-grid{grid-template-columns:1fr}.library-card{padding:18px}.library-card-actions{width:100%}}
 @media print{.discovery-hero,.discovery-feature-grid{display:none}}
+
+@media(max-width:600px){.discovery-content{margin-right:0}}

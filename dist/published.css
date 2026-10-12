@@ -1,3 +1,4 @@
+[hidden]{display:none!important}
 :root{--ink:#183c33;--deep:#102d29;--mint:#d7e6b5;--line:#dce5dc;--paper:#f7f9f5;--text:#223d35}
 *{box-sizing:border-box}
 body.published-page{margin:0;background:var(--paper);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
