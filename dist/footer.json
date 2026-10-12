@@ -24,8 +24,8 @@
           "url": "./"
         },
         {
-          "name": "User guide",
-          "url": "./guide.html"
+          "name": "Documentation",
+          "url": "./docs/"
         },
         {
           "name": "Industry examples",
@@ -34,6 +34,10 @@
         {
           "name": "Agent data guide",
           "url": "./agent-guide.md"
+        },
+        {
+          "name": "Quick start guide",
+          "url": "./guide.html"
         }
       ]
     },
