@@ -44,3 +44,7 @@ Browser data is device-specific. Export backups before clearing storage or chang
 ## License
 
 Code and contributed examples are MIT licensed; see [LICENSE](LICENSE). Externally loaded dependencies and Mightora branding assets retain their respective licenses and branding rights. The MIT license grants no trademark rights.
+
+## Custom domain and browser security
+
+Use **HTTPS** for a custom domain, and enable **Enforce HTTPS** in GitHub Pages once the certificate is ready. `crypto.randomUUID()` is unavailable on HTTP origins in many browsers. The editor uses a cryptographically secure `getRandomValues()` fallback for ID generation, but HTTPS remains the recommended way to access the site. Browser-local workspaces are scoped to the URL origin, so export a Markdown or CSV backup before changing an existing site from HTTP to HTTPS.

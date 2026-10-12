@@ -1,3 +1,4 @@
+import { newId } from './ids.mjs';
 import { seedRoadmap, validateRoadmap, validateReadiness } from './model.mjs';
 
 export const STORAGE_KEY='mightora-local-workspace-v1';
@@ -42,19 +43,19 @@ export function validateWorkspace(w){
   return w;
 }
 export function appendRoadmap(w,roadmap,now=Date.now()){
-  const record={id:crypto.randomUUID(),roadmap:cleanRoadmap(roadmap),revision:1,updatedAt:now};w.roadmaps.push(record);return record;
+  const record={id:newId(),roadmap:cleanRoadmap(roadmap),revision:1,updatedAt:now};w.roadmaps.push(record);return record;
 }
 export function saveRecord(w,id,roadmap,expectedRevision,now=Date.now()){
   const r=w.roadmaps.find(r=>r.id===id);if(!r)fail('Roadmap no longer exists. Reload to continue.');
   if(r.revision!==expectedRevision)fail('This roadmap changed in another tab. Reload before saving.');
   const next=cleanRoadmap(roadmap);
-  w.snapshots.push({id:crypto.randomUUID(),roadmapId:id,revision:r.revision,roadmap:structuredClone(r.roadmap),at:r.updatedAt});
-  r.roadmap=next;r.revision++;r.updatedAt=now;w.audit.push({id:crypto.randomUUID(),action:'Roadmap saved',resourceId:id,detail:`Revision ${r.revision}`,at:now});return r;
+  w.snapshots.push({id:newId(),roadmapId:id,revision:r.revision,roadmap:structuredClone(r.roadmap),at:r.updatedAt});
+  r.roadmap=next;r.revision++;r.updatedAt=now;w.audit.push({id:newId(),action:'Roadmap saved',resourceId:id,detail:`Revision ${r.revision}`,at:now});return r;
 }
 export function importWorkspace(current,input,mode='add'){
   validateWorkspace(current);validateWorkspace(input);if(!['add','replace'].includes(mode))fail('Choose add or replace.');
   const result=mode==='replace'?emptyWorkspace():structuredClone(current),copy=structuredClone(input),maps={};
-  for(const name of COLLECTIONS)maps[name]=new Map(copy[name].map(r=>[r.id,crypto.randomUUID()]));
+  for(const name of COLLECTIONS)maps[name]=new Map(copy[name].map(r=>[r.id,newId()]));
   for(const name of COLLECTIONS)for(const row of copy[name]){
     const oldId=row.id;row.id=maps[name].get(oldId);
     if(row.roadmapId)row.roadmapId=maps.roadmaps.get(row.roadmapId);
