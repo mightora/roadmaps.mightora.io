@@ -1,3 +1,4 @@
+import { newId } from './ids.mjs';
 export const STATUSES = ['Planned', 'In progress', 'Done', 'On hold'];
 export const COLORS = ['#376d62','#6979ab','#bd8659','#8a70a1','#528ba2','#799054','#bb7489','#8793a2','#688f85'];
 export function addDays(date,n){const d=new Date(date+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10);}
@@ -60,7 +61,7 @@ export function deleteActivity(r,id) {
   const next=structuredClone(r); next.activities=next.activities.filter(a=>a.id!==id).map(a=>({...a,dependencies:a.dependencies.filter(d=>d!==id)}));return validateRoadmap(next);
 }
 export function addWorkstream(r,name,color='#059669'){
-  const next=structuredClone(r);next.tracks.push({id:crypto.randomUUID(),name:name.trim(),color});return validateRoadmap(next);
+  const next=structuredClone(r);next.tracks.push({id:newId(),name:name.trim(),color});return validateRoadmap(next);
 }
 export function editWorkstream(r,id,name,color){
   const next=structuredClone(r),track=next.tracks.find(t=>t.id===id);if(!track)throw new Error('Workstream not found.');track.name=name.trim();track.color=color;return validateRoadmap(next);

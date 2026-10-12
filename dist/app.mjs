@@ -1,3 +1,4 @@
+import { newId } from './ids.mjs';
 import { STATUSES, COLORS, seedRoadmap, validateRoadmap, validateReadiness, updateActivity, deleteActivity, quarterOf, periodLabel, addMonths, addDays, blockers, scheduleConflicts, downstream } from './model.mjs';
 import { initialise, saveRoadmap, isEditor, organisationMembers, assigneeField, decorateDrawer, demoRuntime, communityRuntime, sharedPreview, setBusy } from './portal.mjs';
 import { roadmapToCsv, roadmapFromCsv } from './csv.mjs';
@@ -123,7 +124,7 @@ function openActivity(id=null,trackId=null,period=0){
   const existing=roadmap.activities.find(a=>a.id===id);
   const start=addMonths(roadmap.startDate,period*3);
   const end=[addDays(start,23),addDays(addMonths(roadmap.startDate,roadmap.periodCount*3),-1)].sort()[0];
-  const a=existing||{id:crypto.randomUUID(),title:'',description:'',trackId:trackId||roadmap.tracks[0].id,owner:'',start,end,status:'Planned',dependencies:[]};
+  const a=existing||{id:newId(),title:'',description:'',trackId:trackId||roadmap.tracks[0].id,owner:'',start,end,status:'Planned',dependencies:[]};
   const affected=existing?downstream(a.id,roadmap):[],successors=roadmap.activities.filter(b=>b.dependencies.includes(a.id));
   const unavailable=new Set(affected);
   lastFocus=document.activeElement;
@@ -169,7 +170,7 @@ function openSettings(){
     document.querySelectorAll('[data-remove-track]').forEach(button=>button.addEventListener('click',()=>{draft.tracks.splice(Number(button.dataset.removeTrack),1);renderTracks();}));
   };
   renderTracks();$('#cancel-settings').onclick=()=>dialog.close();
-  $('#add-track').onclick=()=>{if(draft.tracks.length>=20){toast('A roadmap supports up to 20 workstreams.',true);return;}draft.tracks.push({id:crypto.randomUUID(),name:'New workstream',color:COLORS[draft.tracks.length%COLORS.length]});renderTracks();};
+  $('#add-track').onclick=()=>{if(draft.tracks.length>=20){toast('A roadmap supports up to 20 workstreams.',true);return;}draft.tracks.push({id:newId(),name:'New workstream',color:COLORS[draft.tracks.length%COLORS.length]});renderTracks();};
   $('#reset-sample').onclick=async()=>{if(await confirmAction('Reset to the example plan?','This replaces all activities, dependencies and settings. Export your current roadmap first if you want to keep it.','Reset roadmap'))try{await commit(seedRoadmap());dialog.close();toast('Example roadmap restored.');}catch(error){toast(error.message,true);}};
   $('#settings-form').onsubmit=async e=>{
     e.preventDefault();const data=new FormData(e.target),start=data.get('startDate');const delta=(Date.parse(start)-Date.parse(draft.startDate))/86400000;
