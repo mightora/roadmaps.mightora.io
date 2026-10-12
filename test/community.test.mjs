@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {seedRoadmap,validateRoadmap,periodLabel} from '../dist/model.mjs';
+import {emptyWorkspace,appendRoadmap,saveRecord,importWorkspace,loadWorkspace,writeWorkspace} from '../dist/workspace.mjs';
+import {roadmapToCsv,roadmapFromCsv,workspaceToCsv,workspaceFromCsv,parseCsv} from '../dist/csv.mjs';
+import {roadmapToMarkdown,roadmapFromMarkdown,workspaceToMarkdown,workspaceFromMarkdown} from '../dist/markdown.mjs';
+import {makeShareUrl,readShareHash} from '../dist/share.mjs';
+function sample(){const r=seedRoadmap();r.quarterLabels=Array.from({length:8},(_,i)=>`Delivery ${i+1}`);r.activities[0].title='=SUM(1,2)';r.activities[0].description='Unicode 🌍, "quoted"\nTwo lines';return r;}
+test('Roadmap CSV and Markdown preserve workstreams, custom quarters and dependencies',()=>{const r=sample();assert.deepEqual(roadmapFromCsv(roadmapToCsv(r)),r);assert.deepEqual(roadmapFromMarkdown(roadmapToMarkdown(r)),r);assert.match(roadmapToCsv(r),/'=SUM/);assert.equal(periodLabel(r,0).title,'Delivery 1');});
+test('Full workspace transfers preserve history, notes, templates and remap references when merged',()=>{const w=emptyWorkspace(),r=appendRoadmap(w,sample());saveRecord(w,r.id,r.roadmap,1);w.comments.push({id:'note',roadmapId:r.id,activityId:null,author:'Ian',text:'Ready',at:1});w.templates.push({id:'template',name:'Factory',roadmap:sample(),createdAt:1});for(const copy of [workspaceFromCsv(workspaceToCsv(w)),workspaceFromMarkdown(workspaceToMarkdown(w))]){assert.deepEqual(copy,w);const merged=importWorkspace(w,copy);assert.equal(merged.roadmaps.length,2);assert.notEqual(merged.roadmaps[0].id,merged.roadmaps[1].id);assert.equal(merged.comments[1].roadmapId,merged.roadmaps[1].id);}});
+test('Invalid quarters, dangling links and malformed CSV are rejected',()=>{const r=sample();r.quarterLabels=['One'];assert.throws(()=>validateRoadmap(r),/quarter/);assert.throws(()=>parseCsv('a,b\n"unfinished'),/Unclosed/);const csv=roadmapToCsv(sample()).replace('t1','missing');assert.throws(()=>roadmapFromCsv(csv));});
+test('Share links retain custom quarter labels',async()=>{const r=sample(),url=await makeShareUrl(r,'https://example.com/roadmaps/');assert.deepEqual((await readShareHash(new URL(url).hash)).quarterLabels,r.quarterLabels);});
+test('Browser workspace saves reject stale tabs and preserve existing data on failure',()=>{const m=new Map(),storage={getItem:k=>m.get(k)||null,setItem:(k,v)=>m.set(k,v)};const w=loadWorkspace(storage),next=writeWorkspace(storage,w,0);assert.equal(next.revision,1);assert.throws(()=>writeWorkspace(storage,w,0),/another tab/);assert.equal(loadWorkspace(storage).revision,1);});

@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "title": "Safer coatings: research to market",
+  "client": "Chemistry · illustrative example",
+  "startDate": "2027-01-01",
+  "periodCount": 4,
+  "quarterLabels": [
+    "Q1 · Discover",
+    "Q2 · Develop",
+    "Q3 · Validate",
+    "Q4 · Adopt"
+  ],
+  "tracks": [
+    {
+      "id": "chemistry-t0",
+      "name": "Drivers & requirements",
+      "color": "#376d62"
+    },
+    {
+      "id": "chemistry-t1",
+      "name": "Research & evidence",
+      "color": "#6979ab"
+    },
+    {
+      "id": "chemistry-t2",
+      "name": "Pilot & manufacturing",
+      "color": "#bd8659"
+    },
+    {
+      "id": "chemistry-t3",
+      "name": "Market adoption",
+      "color": "#8a70a1"
+    }
+  ],
+  "activities": [
+    {
+      "id": "chemistry-a0",
+      "title": "Understand coating performance needs",
+      "trackId": "chemistry-t0",
+      "start": "2027-01-01",
+      "end": "2027-01-03",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": []
+    },
+    {
+      "id": "chemistry-a1",
+      "title": "Map applicable safety and compliance requirements",
+      "trackId": "chemistry-t0",
+      "start": "2027-01-04",
+      "end": "2027-01-06",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": []
+    },
+    {
+      "id": "chemistry-a2",
+      "title": "Screen candidate materials",
+      "trackId": "chemistry-t1",
+      "start": "2027-01-07",
+      "end": "2027-01-09",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "chemistry-a0",
+        "chemistry-a1"
+      ]
+    },
+    {
+      "id": "chemistry-a3",
+      "title": "Test performance and safety",
+      "trackId": "chemistry-t1",
+      "start": "2027-04-10",
+      "end": "2027-04-12",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "chemistry-a2"
+      ]
+    },
+    {
+      "id": "chemistry-a4",
+      "title": "Prepare a pilot production process",
+      "trackId": "chemistry-t2",
+      "start": "2027-04-13",
+      "end": "2027-04-15",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "chemistry-a2"
+      ]
+    },
+    {
+      "id": "chemistry-a5",
+      "title": "Validate repeatability and production cost",
+      "trackId": "chemistry-t2",
+      "start": "2027-07-16",
+      "end": "2027-07-18",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "chemistry-a3",
+        "chemistry-a4"
+      ]
+    },
+    {
+      "id": "chemistry-a6",
+      "title": "Run a customer trial",
+      "trackId": "chemistry-t3",
+      "start": "2027-07-19",
+      "end": "2027-07-21",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "chemistry-a5"
+      ]
+    },
+    {
+      "id": "chemistry-a7",
+      "title": "Decide whether to launch or iterate",
+      "trackId": "chemistry-t3",
+      "start": "2027-10-22",
+      "end": "2027-10-24",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "chemistry-a6"
+      ]
+    }
+  ]
+}

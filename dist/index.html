@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#059669">
+  <title>Mightora Roadmaps | Free Roadmap Editor & Industry Examples</title>
+  <meta name="description" content="Create free roadmaps with editable workstreams, quarters and dependencies. Explore chemistry, manufacturing, energy and Power Platform examples.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='10' fill='%23183c33'/%3E%3Cpath d='M10 28V12l10 10 10-10v16' fill='none' stroke='%23d4e6ad' stroke-width='4'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/shared.css">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./platform.css">
+  <script src="./brand-compat.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/components.js"></script>
+  <script type="module" src="./app.mjs"></script>
+
+
+<!-- discovery-head:start -->
+<link rel="canonical" href="https://mightora.github.io/roadmaps.mightora.io/">
+<meta property="og:type" content="website"><meta property="og:title" content="Mightora Roadmaps — free roadmap editor"><meta property="og:description" content="Plan workstreams, quarters and dependencies. Start with chemistry, manufacturing, energy or Power Platform examples."><meta property="og:url" content="https://mightora.github.io/roadmaps.mightora.io/"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Mightora Roadmaps"><meta name="twitter:description" content="Free roadmaps with industry examples and Markdown/CSV transfers.">
+<link rel="alternate" type="application/json" href="./examples.json" title="Industry roadmap examples">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Mightora Roadmaps","url":"https://mightora.github.io/roadmaps.mightora.io/","description":"Free browser roadmap editor with editable workstreams, quarters, activity dependencies, Markdown and CSV transfers, and shareable snapshots.","applicationCategory":"BusinessApplication","operatingSystem":"Web browser","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"GBP"},"creator":{"@type":"Person","name":"Ian Tweedie","url":"https://techtweedie.github.io"},"featureList":["Editable workstreams and quarter labels","Activity-level dependencies","Markdown and CSV import/export","Read-only snapshot links","Industry examples"]}</script>
+<!-- discovery-head:end -->
+</head>
+<body>
+  <div id="brand-header"><mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Workspace","url":"#workspace"},{"label":"Data backup","url":"#data"},{"label":"Mightora.io ↗","url":"https://mightora.io","ext":true}]'></mightora-header></div>
+  <div id="runtime-banner" class="runtime-banner" hidden></div>
+  <section id="auth-screen" class="auth-screen"></section>
+  <div id="application-shell" hidden>
+  <aside class="sidebar">
+    <div class="workspace-label">YOUR WORKSPACE</div>
+    <nav aria-label="Main navigation">
+      <button data-view="roadmap" class="nav-item active"><span>▦</span> Roadmap</button>
+      <button data-view="dependencies" class="nav-item"><span>◇</span> Dependencies</button>
+      <button data-view="activities" class="nav-item"><span>☷</span> Activities</button>
+      <button data-page="library" class="nav-item"><span>▤</span> Roadmap library</button>
+      <button data-page="workstreams" class="nav-item"><span>≡</span> Workstreams</button>
+      <button data-page="portfolio" class="nav-item"><span>◫</span> Portfolio</button>
+      
+      
+      <button data-page="reports" class="nav-item"><span>▥</span> Reports</button>
+      <button data-page="data" class="nav-item"><span>⇄</span> Data backup</button>
+    </nav>
+    <div class="sidebar-note"><span class="note-symbol">↗</span><strong>Build the capability.<br>Connect the work.</strong><p>A clear path from first principles to repeatable delivery.</p></div>
+    <button id="settings" class="nav-item settings"><span>⚙</span> Edit quarters & settings</button>
+    <div class="sidebar-footer">MIGHTORA ROADMAP · v0.4</div>
+  </aside>
+  <main>
+    <header class="topbar"><div class="breadcrumb">Local workspace · all features</div><div id="save-indicator" class="save-indicator" role="status">Loading…</div></header>
+    <section id="workspace-panel" hidden></section>
+    <div id="roadmap-content">
+    <div class="roadmap-picker"><label for="roadmap-select">Roadmap</label><select id="roadmap-select"></select><button id="choose-example" class="text-button">Choose an industry example</button><button id="new-roadmap" class="text-button">+ New roadmap</button><button id="collaboration" class="text-button">Discussion & history</button></div>
+    <div id="shared-preview-bar" class="shared-preview-bar" hidden></div>
+    <section class="page-heading"><div><div class="eyebrow">CONNECTED WORKSTREAMS · YOUR ROADMAP</div><h1 id="roadmap-title">Low-code App Factory</h1><p id="subtitle">Loading your roadmap…</p></div><div class="heading-actions"><button id="share-roadmap" class="button">↗ Share link</button><select id="export-format" aria-label="Export format"><option value="md">Markdown</option><option value="csv">CSV</option></select><button id="export" class="button">↓ Export</button><button id="add-activity" class="button primary">+ Add activity</button></div></section>
+    <section id="stats" class="stats" aria-label="Roadmap summary"></section>
+    <section class="roadmap-panel">
+      <div class="panel-toolbar"><div class="view-tabs" role="group" aria-label="Roadmap view"><button data-view="roadmap" class="active">Roadmap</button><button data-view="dependencies">Dependencies</button><button data-view="activities">Activities</button></div><div class="toolbar-actions"><label class="search"><span>⌕</span><input id="search" type="search" placeholder="Find an activity or owner" aria-label="Search activities"></label><select id="status-filter" aria-label="Filter by status"><option value="">All statuses</option><option>Planned</option><option>In progress</option><option>Done</option><option>On hold</option><option value="blocked">Waiting on dependencies</option><option value="conflict">Schedule conflicts</option></select><button id="density" class="button small">Compact view</button></div></div>
+      <div class="panel-context"><span id="view-caption">8 workstreams · 8 quarters</span><span class="plan-note">Illustrative plan · dates are editable</span></div>
+      <div id="canvas" class="canvas" aria-live="polite"><div class="loading">Opening your roadmap…</div></div>
+      <footer class="panel-footer"><div class="legend"><span><i class="dot planned"></i>Planned</span><span><i class="dot progress"></i>In progress</span><span><i class="dot done"></i>Done</span><span><i class="dot hold"></i>On hold</span></div><span id="footer-hint">Select a card to edit its activities and dependencies.</span></footer>
+    </section>
+    <div class="bottom-note"><span>One cell, many activities. Every dependency connects individual activities.</span><div><button id="save-filter" class="text-button">Save view</button><button id="svg-export" class="text-button">Export image</button><button id="pdf-export" class="text-button">Print / PDF</button><button id="save-template" class="text-button">Save template</button><button id="import" class="text-button">Import roadmap</button></div></div>
+    <div id="saved-views" class="saved-views"></div>
+    </div>
+  </main>
+  </div>
+  <section class="discovery-content" aria-labelledby="about-roadmaps"><h2 id="about-roadmaps">Free roadmaps for connected work</h2><p>Mightora Roadmaps helps you plan activities across workstreams and quarters, connect dependencies, and share a read-only snapshot with your team. Edit quarter labels, owners and dates; import or export Markdown and CSV. Your workspace saves in this browser, without an account.</p><h3>Start with a simple industry example</h3><p>Each example has four workstreams, four quarters and eight activities. They are illustrative starting points, not verified forecasts or regulatory advice.</p><nav aria-label="Industry examples"><a href="./examples/chemistry.html">Chemistry: Safer coatings: research to market</a><a href="./examples/energy.html">Energy: Community solar feasibility to delivery</a><a href="./examples/manufacturing.html">Manufacturing: Predictive maintenance pilot</a><a href="./examples/power-platform.html">Power Platform: A simple low-code app factory</a></nav><p><a href="./guide.html">How to use the roadmap editor</a> · <a href="./examples.json">Machine-readable example catalog</a> · <a href="./agent-guide.md">Agent data guide</a></p><noscript><p>The editor requires JavaScript. The guide and example pages work without it, and example files can be downloaded directly.</p></noscript></section>
+  <div id="brand-bottom"><mightora-author><div class="author-section-inner"><div class="author-photos"><img src="https://techtweedie.github.io/images/author/ian-tweedie-sq2_hu_a380911c6f4726de.png" alt="Ian Tweedie" class="author-avatar"><img src="https://raw.githubusercontent.com/TechTweedie/techtweedie.github.io/v2/assets/images/site/main-logo.png" alt="TechTweedie" class="author-blog-logo"></div><div class="author-text"><h2 class="author-heading">Built by TechTweedie</h2><p class="author-bio">Mightora Roadmaps is created by <strong>Ian Tweedie</strong> — also known as <strong>TechTweedie</strong>. A technology consultant and developer in North East England, Ian builds practical tools for planning, architecture and delivery.</p><div class="author-links"><a href="https://techtweedie.github.io" target="_blank" rel="noopener" class="author-link">Blog</a><a href="https://github.com/itweedie" target="_blank" rel="noopener" class="author-link">GitHub</a></div></div></div></mightora-author><mightora-footer><div class="container"><div class="footer-bottom"><div class="footer-copy">Roadmaps by <a href="https://mightora.io" target="_blank" rel="noopener">Mightora</a> · <span class="footer-year"></span></div></div></div></mightora-footer></div>
+  <div id="drawer-overlay" class="overlay" hidden></div>
+  <aside id="drawer" class="drawer" hidden role="dialog" aria-modal="true" aria-labelledby="drawer-title"></aside>
+  <dialog id="settings-dialog" class="settings-dialog"></dialog>
+  <dialog id="platform-dialog" class="platform-dialog"></dialog>
+  <dialog id="confirm-dialog" class="confirm-dialog"><h2 id="confirm-title"></h2><p id="confirm-message"></p><div class="dialog-actions"><button id="confirm-cancel" class="button">Cancel</button><button id="confirm-ok" class="button danger">Delete activity</button></div></dialog>
+  <input type="file" id="import-file" accept=".md,.markdown,.csv,text/markdown,text/csv" hidden>
+  <div id="toast" class="toast" role="status" hidden></div>
+</body>
+</html>

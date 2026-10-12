@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "examples": [
+    {
+      "id": "chemistry",
+      "name": "Chemistry",
+      "title": "Safer coatings: research to market",
+      "description": "Connect customer needs, material research, pilot production and customer validation.",
+      "illustrative": true,
+      "roadmapUrl": "examples/chemistry.json",
+      "pageUrl": "examples/chemistry.html",
+      "markdownUrl": "examples/chemistry.md",
+      "csvUrl": "examples/chemistry.csv"
+    },
+    {
+      "id": "energy",
+      "name": "Energy",
+      "title": "Community solar feasibility to delivery",
+      "description": "Connect demand, feasibility, procurement and operational readiness for an illustrative solar project.",
+      "illustrative": true,
+      "roadmapUrl": "examples/energy.json",
+      "pageUrl": "examples/energy.html",
+      "markdownUrl": "examples/energy.md",
+      "csvUrl": "examples/energy.csv"
+    },
+    {
+      "id": "manufacturing",
+      "name": "Manufacturing",
+      "title": "Predictive maintenance pilot",
+      "description": "Plan a small equipment-monitoring pilot, from maintenance needs to operational rollout.",
+      "illustrative": true,
+      "roadmapUrl": "examples/manufacturing.json",
+      "pageUrl": "examples/manufacturing.html",
+      "markdownUrl": "examples/manufacturing.md",
+      "csvUrl": "examples/manufacturing.csv"
+    },
+    {
+      "id": "power-platform",
+      "name": "Power Platform",
+      "title": "A simple low-code app factory",
+      "description": "Build a repeatable delivery capability through intake, guardrails, reusable features and a first application.",
+      "illustrative": true,
+      "roadmapUrl": "examples/power-platform.json",
+      "pageUrl": "examples/power-platform.html",
+      "markdownUrl": "examples/power-platform.md",
+      "csvUrl": "examples/power-platform.csv"
+    }
+  ]
+}

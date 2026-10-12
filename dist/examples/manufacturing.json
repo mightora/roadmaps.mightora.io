@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "title": "Predictive maintenance pilot",
+  "client": "Manufacturing · illustrative example",
+  "startDate": "2027-01-01",
+  "periodCount": 4,
+  "quarterLabels": [
+    "Q1 · Discover",
+    "Q2 · Develop",
+    "Q3 · Validate",
+    "Q4 · Adopt"
+  ],
+  "tracks": [
+    {
+      "id": "manufacturing-t0",
+      "name": "Business outcomes",
+      "color": "#376d62"
+    },
+    {
+      "id": "manufacturing-t1",
+      "name": "Data & equipment",
+      "color": "#6979ab"
+    },
+    {
+      "id": "manufacturing-t2",
+      "name": "Pilot delivery",
+      "color": "#bd8659"
+    },
+    {
+      "id": "manufacturing-t3",
+      "name": "Operational adoption",
+      "color": "#8a70a1"
+    }
+  ],
+  "activities": [
+    {
+      "id": "manufacturing-a0",
+      "title": "Choose a high-impact machine",
+      "trackId": "manufacturing-t0",
+      "start": "2027-01-01",
+      "end": "2027-01-03",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": []
+    },
+    {
+      "id": "manufacturing-a1",
+      "title": "Agree downtime and cost measures",
+      "trackId": "manufacturing-t0",
+      "start": "2027-01-04",
+      "end": "2027-01-06",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a0"
+      ]
+    },
+    {
+      "id": "manufacturing-a2",
+      "title": "Assess sensors and data access",
+      "trackId": "manufacturing-t1",
+      "start": "2027-01-07",
+      "end": "2027-01-09",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a0"
+      ]
+    },
+    {
+      "id": "manufacturing-a3",
+      "title": "Collect baseline equipment data",
+      "trackId": "manufacturing-t1",
+      "start": "2027-04-10",
+      "end": "2027-04-12",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a2"
+      ]
+    },
+    {
+      "id": "manufacturing-a4",
+      "title": "Build and evaluate an alert prototype",
+      "trackId": "manufacturing-t2",
+      "start": "2027-04-13",
+      "end": "2027-04-15",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a1",
+        "manufacturing-a3"
+      ]
+    },
+    {
+      "id": "manufacturing-a5",
+      "title": "Trial alerts with maintenance engineers",
+      "trackId": "manufacturing-t2",
+      "start": "2027-07-16",
+      "end": "2027-07-18",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a4"
+      ]
+    },
+    {
+      "id": "manufacturing-a6",
+      "title": "Document response procedures and training",
+      "trackId": "manufacturing-t3",
+      "start": "2027-07-19",
+      "end": "2027-07-21",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a5"
+      ]
+    },
+    {
+      "id": "manufacturing-a7",
+      "title": "Review value and decide rollout",
+      "trackId": "manufacturing-t3",
+      "start": "2027-10-22",
+      "end": "2027-10-24",
+      "status": "Planned",
+      "owner": "",
+      "description": "Illustrative planning activity. Adapt scope, dates, evidence and acceptance criteria to your project; this is not a regulatory forecast.",
+      "dependencies": [
+        "manufacturing-a6"
+      ]
+    }
+  ]
+}

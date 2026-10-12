@@ -1,0 +1,13 @@
+# Mightora Roadmaps
+
+Free browser-local roadmap editor. No accounts or payments.
+
+- [Guide](https://mightora.github.io/roadmaps.mightora.io/guide.html): features, privacy and workflows.
+- [Agent data guide](https://mightora.github.io/roadmaps.mightora.io/agent-guide.md): formats and constraints.
+- [Example catalog](https://mightora.github.io/roadmaps.mightora.io/examples.json): illustrative sector roadmaps.
+- [Chemistry](https://mightora.github.io/roadmaps.mightora.io/examples/chemistry.html): Connect customer needs, material research, pilot production and customer validation.
+- [Energy](https://mightora.github.io/roadmaps.mightora.io/examples/energy.html): Connect demand, feasibility, procurement and operational readiness for an illustrative solar project.
+- [Manufacturing](https://mightora.github.io/roadmaps.mightora.io/examples/manufacturing.html): Plan a small equipment-monitoring pilot, from maintenance needs to operational rollout.
+- [Power Platform](https://mightora.github.io/roadmaps.mightora.io/examples/power-platform.html): Build a repeatable delivery capability through intake, guardrails, reusable features and a first application.
+
+Examples are fictional plans, not verified industry forecasts. Links share snapshots, not synchronized publications. Local user workspaces are never included in the public catalog.
