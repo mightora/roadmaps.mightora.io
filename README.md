@@ -55,6 +55,10 @@ This is a community project: **all editing features are free**, there are no acc
 
 The project is maintained by volunteers without guaranteed response times. The MIT license is permissive but does not imply an audit, endorsement, warranty, or trademark licence.
 
+## Footer and shared branding
+
+The website uses Mightora's shared header, author and footer components. The footer navigation is deliberately configured in [dist/footer.json](dist/footer.json) so all links resolve to real Roadmaps or Mightora destinations and do not depend on malformed or changing external YAML. The shared footer component accepts this JSON because JSON is valid YAML. Footer layout and responsive rules are in [dist/platform.css](dist/platform.css).
+
 ## Data and sharing
 
 Browser data is device-specific. Export backups before clearing storage or changing devices. Share links contain snapshots; later edits need a new link. Persistent published URLs and online collaboration are not implemented. Public examples contain no user workspace data.
