@@ -14,6 +14,6 @@
     "discovery": "node scripts/build-discovery.mjs",
     "build": "npm run examples && npm run discovery",
     "test": "node --test test/*.test.mjs",
-    "check": "node --check dist/ids.mjs && node --check dist/app.mjs && node --check dist/portal.mjs && node --check dist/examples.mjs && node --check dist/model.mjs && node --check dist/workspace.mjs && node --check dist/csv.mjs && node --check dist/share.mjs && node --check dist/links.mjs && node --check dist/published.mjs && node --check dist/published-view.mjs && node --check scripts/build-examples.mjs && node --check scripts/build-discovery.mjs"
+    "check": "node --check dist/ids.mjs && node --check dist/app.mjs && node --check dist/portal.mjs && node --check dist/examples.mjs && node --check dist/model.mjs && node --check dist/workspace.mjs && node --check dist/csv.mjs && node --check dist/icons.mjs && node --check dist/share.mjs && node --check dist/links.mjs && node --check dist/published.mjs && node --check dist/published-view.mjs && node --check scripts/build-examples.mjs && node --check scripts/build-discovery.mjs"
   }
 }
