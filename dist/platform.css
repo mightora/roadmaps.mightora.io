@@ -139,3 +139,6 @@ body{display:block;background:var(--bg,#f9fafb);color:var(--text,#111827)}:where
 }
 @media(prefers-reduced-motion:reduce){.sidebar .nav-item,.sidebar .nav-item .mi-icon{transition:none}}
 @media print{.quick-jump-nav,.trust-strip{display:none!important}}
+
+/* Keep the shared Mightora header and quick links together while scrolling. */
+#brand-header{position:sticky;top:0;z-index:100}
