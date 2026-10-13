@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Preview and edit your roadmap presentation before exporting an editable PowerPoint deck.">
+  <meta name="theme-color" content="#173d33">
+  <title>Presentation studio | Mightora Roadmaps</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/shared.css">
+  <link rel="stylesheet" href="./deck.css">
+  <script defer src="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/components.js"></script>
+  <script type="module" src="./deck-ui.mjs"></script>
+</head>
+<body class="deck-page">
+  <mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Editor","url":"./"},{"label":"Documentation","url":"./docs/"},{"label":"Open source","url":"https://github.com/mightora/roadmaps.mightora.io","ext":true}]'></mightora-header>
+  <main id="deck-app" class="deck-app">
+    <header class="deck-header">
+      <div class="deck-header-copy"><p class="deck-eyebrow">MIGHTORA · PRESENTATION STUDIO</p><h1>Review before you export</h1><p id="deck-subheading">A 16:9 slide deck generated from your roadmap. Edit the presentation without changing your plan.</p></div>
+      <div class="deck-header-actions">
+        <a href="./" class="deck-button secondary" id="deck-back">← Back to roadmap</a>
+        <button id="deck-download-json" class="deck-button secondary" type="button">Save deck draft</button>
+        <button id="deck-import-json" class="deck-button secondary" type="button">Open deck draft</button>
+        <button id="deck-export-pptx" class="deck-button primary" type="button">Export PowerPoint (.pptx)</button>
+      </div>
+    </header>
+    <p class="deck-notice">Presentation edits are kept separately in this browser tab. The original roadmap is never changed. Only included slides are exported. PowerPoint export loads a presentation library from jsDelivr when requested.</p>
+    <div class="deck-workspace" id="deck-workspace">
+      <aside class="deck-sidebar" aria-label="Presentation slides">
+        <div class="deck-side-heading"><h2>Slides</h2><span id="deck-slide-count"></span></div>
+        <div class="deck-slide-list" id="deck-slide-list" role="list"></div>
+        <button type="button" class="deck-button secondary deck-add" id="deck-add-slide">+ Add commentary slide</button>
+      </aside>
+      <section class="deck-center" aria-label="Slide preview">
+        <div class="deck-preview-toolbar"><div><strong id="deck-active-title">Presentation preview</strong><span id="deck-position"></span></div><div class="deck-preview-controls"><button type="button" id="deck-prev" class="deck-button secondary" aria-label="Previous slide">← Previous</button><button type="button" id="deck-next" class="deck-button secondary" aria-label="Next slide">Next →</button><button type="button" id="deck-fullscreen" class="deck-button secondary">Full screen</button></div></div>
+        <div class="deck-stage-wrap" id="deck-stage-wrap"><div id="deck-stage" class="deck-stage" aria-live="polite" aria-label="Current presentation slide"></div></div>
+        <div class="deck-source-notice"><strong>What this deck covers:</strong> Title, executive summary, roadmap timeline, dependency analysis, quarter-by-quarter delivery, workstream detail and next steps. Enable deep dives for individual activity slides.</div>
+        <div class="deck-options">
+          <div class="deck-options-heading"><h2>Build options</h2><p>Changes here take effect when you regenerate the deck. Regeneration replaces presentation edits.</p></div>
+          <div class="deck-option-controls">
+            <label><input id="deck-opt-descriptions" type="checkbox" checked> Include activity descriptions</label>
+            <label><input id="deck-opt-owners" type="checkbox"> Include owner names</label>
+            <label><input id="deck-opt-deepdives" type="checkbox"> Add individual activity deep dives</label>
+            <button id="deck-regenerate" type="button" class="deck-button secondary">Regenerate slides</button>
+          </div>
+        </div>
+      </section>
+      <aside class="deck-inspector" aria-label="Edit selected slide">
+        <div class="deck-side-heading"><h2>Edit this slide</h2><span>Presentation only</span></div>
+        <div id="deck-editor"></div>
+      </aside>
+    </div>
+    <div id="deck-error" class="deck-error" role="alert" hidden></div>
+    <div id="deck-status" class="deck-status" role="status" aria-live="polite"></div>
+    <input id="deck-json-file" type="file" accept=".json,application/json" hidden>
+  </main>
+  <mightora-footer yaml-url="./footer.json"></mightora-footer>
+</body>
+</html>
