@@ -1,11 +1,13 @@
 import {activeSlides} from './deck-model.mjs';
+import {normalizeDeckTheme,presentationPalette} from './deck-theme.mjs';
 
-const C={deep:'173D33',green:'285C49',mint:'D7E6B5',paper:'F7FAF6',white:'FFFFFF',ink:'173D33',muted:'60776C',line:'DFE9E0',amber:'B27B3D',soft:'ECF3E9'};
+function makeRenderer(theme){
+const C=presentationPalette(theme);
 const clean=s=>String(s??'');
 const limit=(s,n=360)=>clean(s).length>n?clean(s).slice(0,n-1)+'…':clean(s);
 const hex=s=>/^#[0-9a-f]{6}$/i.test(s||'')?s.slice(1).toUpperCase():C.green;
 const fileName=s=>clean(s).toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,70)||'roadmap';
-const tx=(slide,text,x,y,w,h,opt={})=>slide.addText(clean(text),{x,y,w,h,margin:0,breakLine:false,fontFace:'Aptos',fontSize:14,color:C.ink,fit:'shrink',valign:'mid',...opt});
+const tx=(slide,text,x,y,w,h,opt={})=>slide.addText(clean(text),{x,y,w,h,margin:0,breakLine:false,fontFace:opt.bold?theme.headingFont:theme.bodyFont,fontSize:14,color:C.ink,fit:'shrink',valign:'mid',...opt});
 const rect=(pptx,slide,x,y,w,h,fill,line=fill,radius=false)=>slide.addShape(radius?pptx.ShapeType.roundRect:pptx.ShapeType.rect,{x,y,w,h,rectRadius:0.1,line:{color:line,width:0.5},fill:{color:fill},radius:0.1});
 function chrome(pptx,slide,model,index,total){
   rect(pptx,slide,0,0,13.333,0.12,C.deep);
@@ -60,7 +62,7 @@ function timeline(pptx,slide,model){
     tx(slide,limit(row.title,85),x0+0.24,y+0.08,left-0.32,rowH-0.14,{fontSize:10,bold:true});
     for(let j=0;j<cols;j++){
       const cell=row.cells[j]||{count:0,done:0,blocked:0},x=x0+left+j*w;
-      rect(pptx,slide,x,y,w,rowH,cell.count?(cell.blocked?'FFF2E3':cell.done===cell.count?'E7F4E9':'EDF4ED'):C.white,C.line);
+      rect(pptx,slide,x,y,w,rowH,cell.count?(cell.blocked?'FFF2E3':cell.done===cell.count?C.soft:C.soft):C.white,C.line);
       if(cell.count){
         tx(slide,cell.count+' activit'+(cell.count===1?'y':'ies'),x+0.04,y+0.08,w-0.08,0.2,{fontSize:9.5,bold:true,align:'center',color:C.deep});
         tx(slide,cell.done+' complete',x+0.04,y+0.30,w-0.08,0.14,{fontSize:8,align:'center',color:C.muted});
@@ -85,18 +87,21 @@ function cover(pptx,slide,model,index,total){
   tx(slide,'PLANNING  ·  DELIVERY  ·  DEPENDENCIES',0.8,6.72,9,0.25,{fontSize:10,color:C.mint,charSpacing:1.4});
   tx(slide,index+' / '+total,11.8,7.08,0.9,0.2,{fontSize:8,color:C.white,align:'right'});
 }
+return {cover,chrome,timeline,statRow,cardGrid};
+}
 export function createPowerPoint(deck,PptxConstructor){
   if(typeof PptxConstructor!=='function')throw Error('The PowerPoint generator could not be loaded.');
   const slides=activeSlides(deck);if(!slides.length)throw Error('Include at least one slide before exporting.');
+  const theme=normalizeDeckTheme(deck.theme),palette=presentationPalette(theme),render=makeRenderer(theme);
   const pptx=new PptxConstructor();pptx.layout='LAYOUT_WIDE';pptx.author='Mightora Roadmaps';pptx.subject='Editable roadmap presentation';pptx.title=deck.sourceTitle+' · Roadmap presentation';pptx.company='Mightora';pptx.lang='en-GB';
-  pptx.theme={headFontFace:'Aptos Display',bodyFontFace:'Aptos',lang:'en-GB'};
+  pptx.theme={headFontFace:theme.headingFont,bodyFontFace:theme.bodyFont,lang:'en-GB'};
   slides.forEach((model,i)=>{
-    const slide=pptx.addSlide();slide.background={color:C.paper};
-    if(model.kind==='cover')cover(pptx,slide,model,i+1,slides.length);
+    const slide=pptx.addSlide();slide.background={color:palette.paper};
+    if(model.kind==='cover')render.cover(pptx,slide,model,i+1,slides.length);
     else{
-      chrome(pptx,slide,model,i+1,slides.length);
-      if(model.kind==='timeline')timeline(pptx,slide,model);
-      else{const y=statRow(pptx,slide,model.stats,2.72);cardGrid(pptx,slide,model.cards,y);}
+      render.chrome(pptx,slide,model,i+1,slides.length);
+      if(model.kind==='timeline')render.timeline(pptx,slide,model);
+      else{const y=render.statRow(pptx,slide,model.stats,2.72);render.cardGrid(pptx,slide,model.cards,y);}
     }
     const speakerNotes=[model.notes,model.summary,...model.cards.map(c=>[c.title,c.detail,c.meta].filter(Boolean).join(' — '))].filter(Boolean).join('\n\n');
     if(speakerNotes&&typeof slide.addNotes==='function')slide.addNotes(speakerNotes);
