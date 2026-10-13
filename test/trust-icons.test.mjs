@@ -8,6 +8,9 @@ test('homepage shows genuine linked project badges, not invented certification m
   const html=read('dist/index.html');
   assert.match(html,/id="trust-and-transparency"/);
   assert.match(html,/class="trust-badge-list"/);
+  assert.ok(html.indexOf('id="open-source"')<html.indexOf('id="trust-and-transparency"'),'Trust section must follow the open source section');
+  assert.ok(html.indexOf('id="trust-and-transparency"')<html.indexOf('<mightora-footer yaml-url="./footer.json">'),'Badges must precede the footer');
+  assert.match(html,/id="trust-and-transparency"[\s\S]*loading="lazy"/);
   for(const name of ['pages.yml','codeql.yml']){
     const url='https://github.com/mightora/roadmaps.mightora.io/actions/workflows/'+name;
     assert.ok(html.includes(url+'/badge.svg?branch=main'),'Missing live status badge for '+name);

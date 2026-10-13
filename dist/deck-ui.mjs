@@ -119,7 +119,7 @@ $('#deck-export-pptx').onclick=async()=>{
   const button=$('#deck-export-pptx');button.disabled=true;button.textContent='Preparing PowerPoint…';status('Generating editable PowerPoint slides in your browser…');
   try{await downloadPowerPoint(validateDeck(deck));status('PowerPoint downloaded. The text and shapes can be edited in PowerPoint.');}
   catch(error){status('PowerPoint export failed: '+error.message,true);}
-  finally{button.textContent='Export PowerPoint (.pptx)';button.disabled=!activeSlides(deck).length;}
+  finally{button.textContent='Download editable PowerPoint (.pptx)';button.disabled=!activeSlides(deck).length;}
 };
 $('#deck-fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await $('#deck-stage-wrap').requestFullscreen();}catch{status('Full-screen preview is unavailable in this browser.',true);}};
 document.addEventListener('keydown',e=>{if(e.target.closest('input,textarea,button,select'))return;if(e.key==='ArrowRight')select(Math.min(deck.slides.length-1,selected+1));if(e.key==='ArrowLeft')select(Math.max(0,selected-1));});
