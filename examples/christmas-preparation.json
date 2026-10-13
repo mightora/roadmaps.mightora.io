@@ -10,10 +10,10 @@
     "startDate": "2026-12-01",
     "periodCount": 4,
     "quarterLabels": [
-      "Week 1 · Plan",
-      "Week 2 · Shop",
-      "Week 3 · Prepare",
-      "Week 4 · Celebrate"
+      "Winter",
+      "Spring",
+      "Summer",
+      "Autumn"
     ],
     "tracks": [
       {
