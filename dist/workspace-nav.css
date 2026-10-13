@@ -1,0 +1,27 @@
+/* A workspace menu replaces the fixed left sidebar. Loaded after platform.css. */
+#application-shell{display:block;min-height:calc(100vh - 100px)}
+#application-shell > main#workspace{margin:0;width:100%;max-width:none;padding:0 clamp(14px,2.8vw,44px) 26px;min-width:0}
+#brand-bottom{margin-left:0}
+.workspace-topbar{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:64px;height:auto;padding:10px 0;position:relative;z-index:12}
+.topbar-location,.topbar-right{display:flex;align-items:center;gap:15px;min-width:0}
+.topbar-location .breadcrumb{font-size:11px;line-height:1.4}
+.workspace-return{background:transparent;border:0;padding:8px 0;color:var(--app-accent,#047857);font-size:12px;font-weight:650;white-space:nowrap}
+.workspace-return:hover{text-decoration:underline}
+.workspace-menu-wrap{position:relative;flex:none}
+.workspace-menu-wrap summary{list-style:none;display:flex;align-items:center;gap:8px;min-height:38px;border:1px solid var(--border,#dfe6df);border-radius:8px;background:var(--bg-card,#fff);padding:7px 11px;color:var(--text,#173d33);font-size:12px;font-weight:650;cursor:pointer;user-select:none}
+.workspace-menu-wrap summary::-webkit-details-marker{display:none}
+.workspace-menu-wrap summary:hover,.workspace-menu-wrap[open] summary{border-color:var(--app-accent,#059669);background:var(--bg-hover,#f1f8f3)}
+.workspace-menu-wrap summary .mi-icon{width:16px;height:16px;flex:none}
+.workspace-menu-wrap summary .mi-icon:last-child{width:13px;height:13px;transition:transform .15s ease}
+.workspace-menu-wrap[open] summary .mi-icon:last-child{transform:rotate(180deg)}
+#workspace-menu{position:absolute;top:calc(100% + 8px);right:0;width:min(268px,calc(100vw - 28px));padding:7px;background:var(--bg-card,#fff);border:1px solid var(--border,#dfe6df);border-radius:12px;box-shadow:0 16px 40px #102d2930;z-index:40;display:flex;flex-direction:column;gap:2px}
+.workspace-menu-item{display:flex;align-items:center;gap:11px;width:100%;min-height:42px;padding:10px 12px;border:0;border-radius:7px;background:transparent;color:var(--text,#173d33);font-size:12px;font-weight:550;text-align:left;cursor:pointer}
+.workspace-menu-item .mi-icon{width:18px;height:18px;flex:none;color:var(--app-accent,#047857)}
+.workspace-menu-item:hover,.workspace-menu-item:focus-visible{background:var(--bg-hover,#edf6ee)}
+.workspace-menu-item.active,.workspace-menu-item[aria-current=page]{background:var(--bg-hover,#edf6ee);font-weight:750;box-shadow:inset 3px 0 var(--app-accent,#059669)}
+.workspace-menu-item:disabled{opacity:.45;cursor:not-allowed}
+#workspace-menu .workspace-menu-item:last-child{border-top:1px solid var(--border,#dfe6df);border-radius:0;margin-top:5px;padding-top:14px}
+@media(max-width:900px){#application-shell > main#workspace{padding:0 18px 24px}.workspace-topbar .save-indicator{display:flex}}
+@media(max-width:600px){#application-shell > main#workspace{padding:0 13px 18px}.workspace-topbar{min-height:56px;gap:8px}.topbar-location,.topbar-right{gap:8px}.topbar-location .breadcrumb{font-size:10px}.workspace-topbar .save-indicator{display:none}.workspace-menu-wrap summary{min-height:36px;padding:7px 10px;font-size:11px}.workspace-return{font-size:10px}.topbar-location:has(.workspace-return:not([hidden])) .breadcrumb{display:none}}
+@media(prefers-reduced-motion:reduce){.workspace-menu-wrap summary .mi-icon:last-child{transition:none}}
+@media print{.workspace-topbar{display:none!important}#application-shell > main#workspace{margin:0;width:100%;padding:0}}

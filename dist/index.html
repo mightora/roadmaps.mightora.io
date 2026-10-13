@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/shared.css">
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./platform.css">
+  <link rel="stylesheet" href="./workspace-nav.css">
   <script defer src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/gh/mightora/shared-ui@main/components.js"></script>
   <script type="module" src="./app.mjs"></script>
@@ -22,7 +23,7 @@
 <!-- discovery-head:end -->
 </head>
 <body>
-  <div id="brand-header"><mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Workspace","url":"#workspace"},{"label":"Data backup","url":"./docs/data.html"},{"label":"Documentation","url":"./docs/"},{"label":"Open source","url":"#open-source"},{"label":"GitHub ↗","url":"https://github.com/mightora/roadmaps.mightora.io","ext":true},{"label":"Mightora.io ↗","url":"https://mightora.io","ext":true}]'></mightora-header></div>
+  <div id="brand-header"><mightora-header site-name="Roadmaps" site-url="./" logo-light="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" logo-dark="https://raw.githubusercontent.com/mightora/mightora.io/main/static/images/mightoraIoLogo4-200x900.png" nav-links='[{"label":"Editor","url":"#workspace"},{"label":"Data backup","url":"./docs/data.html"},{"label":"Documentation","url":"./docs/"},{"label":"Open source","url":"#open-source"},{"label":"GitHub ↗","url":"https://github.com/mightora/roadmaps.mightora.io","ext":true},{"label":"Mightora.io ↗","url":"https://mightora.io","ext":true}]'></mightora-header></div>
   <nav class="quick-jump-nav" aria-label="On this page"><a href="#workspace">Editor</a><a href="#about-roadmaps">How it works</a><a href="#trust-and-transparency">Trust &amp; transparency</a><a href="#open-source">Open source</a><a href="./docs/">Documentation</a></nav>
 <section id="trust-and-transparency" class="trust-strip" aria-label="Public project trust checks">
   <div class="trust-strip-inner">
@@ -38,27 +39,28 @@
   <div id="runtime-banner" class="runtime-banner" hidden></div>
   <section id="auth-screen" class="auth-screen"></section>
   <div id="application-shell" hidden>
-  <aside class="sidebar">
-    <div class="workspace-label">YOUR WORKSPACE</div>
-    <nav aria-label="Main navigation">
-      <button data-view="roadmap" class="nav-item active" title="Roadmap" aria-current="page"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg> Roadmap</button>
-      <button data-view="dependencies" class="nav-item" title="Dependencies"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="6" cy="5" r="2"/><circle cx="18" cy="12" r="2"/><circle cx="6" cy="19" r="2"/><path d="M8 5h3a4 4 0 0 1 4 4v1M8 19h3a4 4 0 0 0 4-4v-1"/></svg> Dependencies</button>
-      <button data-view="activities" class="nav-item" title="Activities"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 6 1.5 1.5L7 5M10 6h11m-18 6 1.5 1.5L7 11m3 1h11m-18 6 1.5 1.5L7 17m3 1h11"/></svg> Activities</button>
-      <button data-page="library" class="nav-item" title="Roadmap library"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16m4-11h4m-4 4h4m-4 4h3"/></svg> Roadmap library</button>
-      <button data-page="workstreams" class="nav-item" title="Workstreams"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/></svg> Workstreams</button>
-      <button data-page="portfolio" class="nav-item" title="Portfolio"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12c4 3 14 3 18 0m-11 1h4"/></svg> Portfolio</button>
-      
-      
-      <button data-page="reports" class="nav-item" title="Reports"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 3v18h18M7 17v-5m5 5V7m5 10V9"/></svg> Reports</button>
-      <button data-page="data" class="nav-item" title="Data backup"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3 2.1 0 4-.3 5.4-.9m1.6-3.6 2 2-2 2m2-2h-6"/></svg> Data backup</button>
-      <a href="./docs/" class="nav-item docs-nav-item" title="Documentation"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6c-2.6-1.7-5.4-2-9-1v14c3.6-1 6.4-.7 9 1m0-14c2.6-1.7 5.4-2 9-1v14c-3.6-1-6.4-.7-9 1m0-14v14"/></svg> Documentation</a>
-    </nav>
-    <div class="sidebar-note"><span class="note-symbol"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m3 17 6-6 4 4 8-8m-7 0h7v7"/></svg></span><strong>Build the capability.<br>Connect the work.</strong><p>A clear path from first principles to repeatable delivery.</p></div>
-    <button id="settings" class="nav-item settings" title="Edit quarters and settings"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5" fill="var(--mi-control-fill, #173e34)"/><circle cx="15" cy="17" r="2.5" fill="var(--mi-control-fill, #173e34)"/></svg> Edit quarters &amp; settings</button>
-    <div class="sidebar-footer">MIGHTORA ROADMAPS · OPEN SOURCE</div>
-  </aside>
+
   <main id="workspace">
-    <header class="topbar"><div class="breadcrumb">Local workspace · all features</div><div id="save-indicator" class="save-indicator" role="status">Loading…</div></header>
+    <header class="topbar workspace-topbar">
+      <div class="topbar-location">
+        <button id="workspace-return" type="button" data-view="roadmap" class="workspace-return" hidden>← Back to roadmap</button>
+        <span class="breadcrumb">Local workspace · saved in this browser</span>
+      </div>
+      <div class="topbar-right">
+        <div id="save-indicator" class="save-indicator" role="status">Loading…</div>
+        <details class="workspace-menu-wrap">
+          <summary id="workspace-menu-toggle" aria-label="Manage roadmap workspace"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18m-12-5V3h6v2"/></svg> Manage <svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m6 9 6 6 6-6"/></svg></summary>
+          <nav id="workspace-menu" aria-label="Workspace tools">
+            <button type="button" class="workspace-menu-item" data-view="roadmap"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="5" rx="1.5"/><rect x="13" y="10" width="8" height="11" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/></svg><span>Roadmap editor</span></button>
+<button type="button" class="workspace-menu-item" data-page="library"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M9 4v16m4-11h4m-4 4h4m-4 4h3"/></svg><span>My roadmaps</span></button>
+<button type="button" class="workspace-menu-item" data-page="workstreams"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="4" width="5" height="16" rx="1"/><rect x="10" y="4" width="5" height="16" rx="1"/><rect x="17" y="4" width="4" height="16" rx="1"/></svg><span>Workstreams</span></button>
+<button type="button" class="workspace-menu-item" data-page="portfolio"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12c4 3 14 3 18 0m-11 1h4"/></svg><span>Portfolio &amp; reports</span></button>
+<button type="button" class="workspace-menu-item" data-page="data"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3 2.1 0 4-.3 5.4-.9m1.6-3.6 2 2-2 2m2-2h-6"/></svg><span>Data backup</span></button>
+<button type="button" class="workspace-menu-item" id="settings"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5" fill="var(--mi-control-fill, #173e34)"/><circle cx="15" cy="17" r="2.5" fill="var(--mi-control-fill, #173e34)"/></svg><span>Roadmap settings</span></button>
+          </nav>
+        </details>
+      </div>
+    </header>
     <section id="workspace-panel" hidden></section>
     <div id="roadmap-content">
     <div class="roadmap-picker"><label for="roadmap-select">Roadmap</label><select id="roadmap-select"></select><button id="choose-example" class="text-button">Choose an industry example</button><button id="new-roadmap" class="text-button"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 5v14M5 12h14"/></svg> New roadmap</button><button id="save-plan-link" class="text-button" title="Bookmark this editable plan in this browser"><svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 4h12v17l-6-4-6 4V4Z"/></svg> Copy plan link</button><button id="collaboration" class="text-button">Discussion & history</button></div>
