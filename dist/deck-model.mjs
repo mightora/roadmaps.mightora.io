@@ -1,4 +1,4 @@
-import {validateRoadmap,periodLabel,quarterOf,blockers,scheduleConflicts,addMonths} from './model.mjs';
+import {validateRoadmap,periodLabel,quarterOf,blockers,scheduleConflicts,addMonths,addDays} from './model.mjs';
 
 const humanDate=s=>new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(s+'T12:00:00Z'));
 const clip=(s,n=210)=>{const value=String(s||'').replace(/\s+/g,' ').trim();return value.length>n?value.slice(0,n-1).trimEnd()+'…':value;};
@@ -50,7 +50,7 @@ export function buildRoadmapDeck(source,settings={}){
   for(const p of periods){
     const activities=r.activities.filter(a=>quarterOf(a.start,r)===p.index).sort((a,b)=>a.start.localeCompare(b.start));
     const parts=page(activities,6);
-    for(let i=0;i<parts.length;i++)slides.push(makeSlide('cards','Quarter-by-quarter',p.title+(parts.length>1?' · '+(i+1)+'/'+parts.length:''),p.phase+' · '+humanDate(p.start)+' – '+humanDate(addMonths(p.end,-0).slice(0,10)),'Activities starting in this quarter, grouped by delivery date. Workstreams and prerequisite counts are shown for context.',{cards:parts[i].map(a=>{const c=asCard(a,r,options);c.meta=r.tracks.find(t=>t.id===a.trackId)?.name+' · '+c.meta;return c;}),stats:[{label:'Activities starting',value:String(activities.length)},{label:'Completed',value:String(activities.filter(a=>a.status==='Done').length)},{label:'Blocked',value:String(activities.filter(a=>a.status!=='Done'&&blockers(a,r).length).length)}]}));
+    for(let i=0;i<parts.length;i++)slides.push(makeSlide('cards','Quarter-by-quarter',p.title+(parts.length>1?' · '+(i+1)+'/'+parts.length:''),p.phase+' · '+humanDate(p.start)+' – '+humanDate(addDays(p.end,-1)),'Activities starting in this quarter, grouped by delivery date. Workstreams and prerequisite counts are shown for context.',{cards:parts[i].map(a=>{const c=asCard(a,r,options);c.meta=r.tracks.find(t=>t.id===a.trackId)?.name+' · '+c.meta;return c;}),stats:[{label:'Activities starting',value:String(activities.length)},{label:'Completed',value:String(activities.filter(a=>a.status==='Done').length)},{label:'Blocked',value:String(activities.filter(a=>a.status!=='Done'&&blockers(a,r).length).length)}]}));
   }
   for(const track of r.tracks){
     const activities=r.activities.filter(a=>a.trackId===track.id).sort((a,b)=>a.start.localeCompare(b.start));

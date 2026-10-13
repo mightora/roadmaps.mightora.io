@@ -191,6 +191,15 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){closeDrawer();return;}
   if(e.key==='Tab'){const nodes=[...$('#drawer').querySelectorAll('button,input,textarea,select')].filter(n=>!n.disabled&&!n.hidden);const first=nodes[0],last=nodes.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}}
 });
+$('#presentation-preview').addEventListener('click',()=>{
+  if(!roadmap)return;
+  try{
+    sessionStorage.setItem('mightora-roadmaps-presentation-source-v1',JSON.stringify(roadmap));
+    sessionStorage.setItem('mightora-roadmaps-presentation-return-v1',location.href);
+    sessionStorage.removeItem('mightora-roadmaps-presentation-draft-v1');
+    location.assign(new URL('deck.html',new URL('./',location.href)).href);
+  }catch(error){toast('Could not open presentation preview: '+error.message,true);}
+});
 $('#export').addEventListener('click',()=>{
   if(!roadmap)return;try{const blob=new Blob([$('#export-format').value==='csv'?roadmapToCsv(roadmap):roadmapToMarkdown(roadmap)],{type:$('#export-format').value==='csv'?'text/csv':'text/markdown'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='roadmap.'+$('#export-format').value;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Roadmap exported, including all dependency links.');}catch(error){toast(error.message,true);}
 });
