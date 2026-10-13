@@ -55,11 +55,15 @@ Edit slide text and content cards, reorder or exclude slides, add commentary and
 
 The editor and preview run locally. When you click **Export PowerPoint**, the browser loads PptxGenJS from jsDelivr; this requires network access and makes a request to that provider. No roadmap data is sent to a Mightora server. Owner names are excluded by default. See [presentation documentation](dist/docs/presentations.html) and [privacy details](PRIVACY.md).
 
+## Navigation
+
+The roadmap uses the full available page width without a permanent left sidebar. **Roadmap**, **Dependencies** and **Activities** remain as tabs in the roadmap panel. Use the compact **Manage** menu at the top right for **My roadmaps**, **Workstreams**, **Portfolio & reports**, **Data backup** and **Roadmap settings**. Workspace pages include a **Back to roadmap** button. Portfolio and Reports previously opened the same view, so there is now one combined entry. No features or locally saved roadmap data were removed.
+
 ## Trust badges and consistent iconography
 
 The homepage displays live **Build & tests** and **CodeQL analysis** workflow status badges linked to their GitHub results, plus the project’s **MIT licence** badge. These are verifiable status indicators, not security certifications or independent audits. The badge images are served by GitHub and Shields.io, as documented in [PRIVACY.md](PRIVACY.md).
 
-The sidebar, editor controls, roadmap statistics and community actions use a single accessible, inline SVG icon set in [`dist/icons.mjs`](dist/icons.mjs). The icons share a 24px viewBox, 1.8px rounded strokes and currentColor so they follow the Mightora shared theme. Decorative icons have `aria-hidden="true"`; labels remain visible and accessible.
+The compact Manage menu, editor controls, roadmap statistics and community actions use a single accessible, inline SVG icon set in [`dist/icons.mjs`](dist/icons.mjs). The icons share a 24px viewBox, 1.8px rounded strokes and currentColor so they follow the Mightora shared theme. Decorative icons have `aria-hidden="true"`; labels remain visible and accessible.
 
 ## Community, openness and trust
 

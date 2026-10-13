@@ -21,18 +21,19 @@ test('homepage shows genuine linked project badges, not invented certification m
   assert.match(read('PRIVACY.md'),/The homepage displays live GitHub Actions workflow status badges/);
 });
 
-test('sidebar navigation uses a unified SVG set and retains readable names',()=>{
+test('compact Manage navigation uses unified SVG icons and readable names',()=>{
   const html=read('dist/index.html');
-  const nav=html.match(/<nav aria-label="Main navigation">([\s\S]*?)<\/nav>/)?.[1];
-  assert.ok(nav,'Missing main navigation');
-  for(const label of ['Roadmap','Dependencies','Activities','Roadmap library','Workstreams','Portfolio','Reports','Data backup','Documentation']){
+  const nav=html.match(/<nav id="workspace-menu" aria-label="Workspace tools">([\s\S]*?)<\/nav>/)?.[1];
+  assert.ok(nav,'Missing workspace tools navigation');
+  for(const label of ['Roadmap editor','My roadmaps','Workstreams','Portfolio &amp; reports','Data backup','Roadmap settings']){
     assert.ok(nav.includes(label),'Missing navigation item '+label);
   }
-  assert.equal((nav.match(/class="mi-icon"/g)||[]).length,9);
+  assert.equal((nav.match(/class="mi-icon"/g)||[]).length,6);
   assert.doesNotMatch(nav,/<span>[▦◇☷▤≡◫▥⇄?]<\/span>/);
-  assert.match(html,/<button id="settings"[^>]*><svg class="mi-icon"/);
+  assert.match(html,/<button[^>]*id="settings"[^>]*><svg class="mi-icon"/);
   assert.match(html,/class="quick-jump-nav"/);
-  assert.match(read('dist/platform.css'),/\.sidebar \.nav-item\.active \.mi-icon/);
+  assert.match(read('dist/workspace-nav.css'),/\.workspace-menu-item\.active/);
+  assert.doesNotMatch(html,/<aside class="sidebar"/);
 });
 
 test('icons have consistent rounded strokes, accessible decorative treatment and a strict whitelist',()=>{
