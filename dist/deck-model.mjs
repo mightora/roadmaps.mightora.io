@@ -35,7 +35,7 @@ function dependencySlides(r,m){
     return {title:source.title+' → '+target.title,detail:'Finish-to-start · '+humanDate(source.end)+' → '+humanDate(target.start),meta:conflict?'Date overlap — review schedule':waiting?'Waiting for prerequisite':'Prerequisite complete',status:conflict?'Date conflict':waiting?'Blocked':'Ready',color:conflict?'#b16d36':waiting?'#b38b48':'#376d62'};
   })).filter(Boolean).sort((a,b)=>Number(b.status==='Date conflict')-Number(a.status==='Date conflict')||Number(b.status==='Blocked')-Number(a.status==='Blocked'));
   const summary=makeSlide('summary','Dependencies','What depends on what','Prerequisites, blockers and schedule conflicts','A dependency means its predecessor must finish before the next activity starts. Date overlaps need review; they are not automatically proof of delivery failure.',{stats:[{label:'Links',value:String(m.links)},{label:'Blocked activities',value:String(m.blocked)},{label:'Date overlaps',value:String(m.conflicts)},{label:'Ready to progress',value:String(readyActivities(r).length)}],cards:[{title:'Priority review',detail:m.conflicts?m.conflicts+' activities have dates overlapping a prerequisite. Check whether dates need moving.':'No date overlaps detected between linked activities.',meta:'Schedule quality',status:m.conflicts?'Date conflict':'Ready',color:'#376d62'},{title:'Unfinished prerequisites',detail:m.blocked?m.blocked+' activities cannot yet proceed because at least one prerequisite is unfinished.':'No activities are currently blocked by unfinished prerequisites.',meta:'Delivery readiness',status:m.blocked?'Blocked':'Ready',color:'#376d62'}]});
-  return [summary,...page(edges,6).map((cards,i)=>makeSlide('cards','Dependencies','Dependency links'+(edges.length>6?' · '+(i+1)+'/'+Math.ceil(edges.length/6):''),cards.length+' links on this page','Arrows run from the prerequisite to the dependent activity. Review amber date overlaps and blocked activities first.',{cards}))];
+  return [summary,...page(edges,4).map((cards,i)=>makeSlide('cards','Dependencies','Dependency links'+(edges.length>4?' · '+(i+1)+'/'+Math.ceil(edges.length/4):''),cards.length+' links on this page','Arrows run from the prerequisite to the dependent activity. Review amber date overlaps and blocked activities first.',{cards}))];
 }
 export function buildRoadmapDeck(source,settings={}){
   const r=validateRoadmap(structuredClone(source));
@@ -49,12 +49,12 @@ export function buildRoadmapDeck(source,settings={}){
   slides.push(...dependencySlides(r,m));
   for(const p of periods){
     const activities=r.activities.filter(a=>quarterOf(a.start,r)===p.index).sort((a,b)=>a.start.localeCompare(b.start));
-    const parts=page(activities,6);
+    const parts=page(activities,4);
     for(let i=0;i<parts.length;i++)slides.push(makeSlide('cards','Quarter-by-quarter',p.title+(parts.length>1?' · '+(i+1)+'/'+parts.length:''),p.phase+' · '+humanDate(p.start)+' – '+humanDate(addDays(p.end,-1)),'Activities starting in this quarter, grouped by delivery date. Workstreams and prerequisite counts are shown for context.',{cards:parts[i].map(a=>{const c=asCard(a,r,options);c.meta=r.tracks.find(t=>t.id===a.trackId)?.name+' · '+c.meta;return c;}),stats:[{label:'Activities starting',value:String(activities.length)},{label:'Completed',value:String(activities.filter(a=>a.status==='Done').length)},{label:'Blocked',value:String(activities.filter(a=>a.status!=='Done'&&blockers(a,r).length).length)}]}));
   }
   for(const track of r.tracks){
     const activities=r.activities.filter(a=>a.trackId===track.id).sort((a,b)=>a.start.localeCompare(b.start));
-    const parts=page(activities,6);
+    const parts=page(activities,4);
     for(let i=0;i<parts.length;i++)slides.push(makeSlide('cards','Workstream detail',track.name+(parts.length>1?' · '+(i+1)+'/'+parts.length:''),activities.length+' activities · '+activities.filter(a=>a.status==='Done').length+' complete','Delivery commitments, owners and prerequisite counts for this workstream.',{accent:track.color,cards:parts[i].map(a=>asCard(a,r,options)),stats:[{label:'Activities',value:String(activities.length)},{label:'In progress',value:String(activities.filter(a=>a.status==='In progress').length)},{label:'Blocked',value:String(activities.filter(a=>a.status!=='Done'&&blockers(a,r).length).length)}]}));
   }
   if(options.includeDeepDives)for(const a of r.activities){
@@ -62,7 +62,7 @@ export function buildRoadmapDeck(source,settings={}){
     const deps=a.dependencies.map(id=>r.activities.find(x=>x.id===id)?.title).filter(Boolean);
     slides.push(makeSlide('cards','Activity deep dive',a.title,(track?.name||'Workstream')+' · '+a.status,options.includeDescriptions?a.description:'',{accent:track?.color,cards:[{title:'Delivery dates',detail:humanDate(a.start)+' – '+humanDate(a.end),meta:a.status,status:a.status,color:track?.color||'#376d62'},{title:'Prerequisites',detail:deps.join(' · ')||'No prerequisites',meta:deps.length+' linked activities',status:deps.length?'Blocked':'Ready',color:'#376d62'},...(options.includeOwners&&a.owner?[{title:'Accountable owner',detail:a.owner,meta:'Owner',status:'',color:'#376d62'}]:[])]}));
   }
-  slides.push(makeSlide('cards','Decisions & next steps','What happens next','Suggested priorities from the current plan','These suggestions are derived from roadmap statuses and dependencies. Edit them for the intended audience before exporting.',{cards:[...ready.slice(0,4).map(a=>({title:a.title,detail:'Ready to progress · '+humanDate(a.start),meta:r.tracks.find(t=>t.id===a.trackId)?.name||'',status:a.status,color:'#376d62'})),...(m.conflicts?[{title:'Resolve date overlaps',detail:m.conflicts+' activities have overlapping predecessor dates.',meta:'Schedule review',status:'Date conflict',color:'#b38b48'}]:[])].slice(0,6)}));
+  slides.push(makeSlide('cards','Decisions & next steps','What happens next','Suggested priorities from the current plan','These suggestions are derived from roadmap statuses and dependencies. Edit them for the intended audience before exporting.',{cards:[...ready.slice(0,m.conflicts?3:4).map(a=>({title:a.title,detail:'Ready to progress · '+humanDate(a.start),meta:r.tracks.find(t=>t.id===a.trackId)?.name||'',status:a.status,color:'#376d62'})),...(m.conflicts?[{title:'Resolve date overlaps',detail:m.conflicts+' activities have overlapping predecessor dates.',meta:'Schedule review',status:'Date conflict',color:'#b38b48'}]:[])].slice(0,4)}));
   return {schemaVersion:1,sourceTitle:r.title,generatedAt:new Date().toISOString(),options,slides};
 }
 export function validateDeck(deck){
@@ -72,7 +72,7 @@ export function validateDeck(deck){
   const goodText=(v,max=8000)=>typeof v==='string'&&v.length<=max;
   const ids=new Set();
   for(const slide of deck.slides){
-    if(!slide||!goodText(slide.id,100)||ids.has(slide.id)||!kinds.has(slide.kind)||!goodText(slide.title,200)||!goodText(slide.subtitle,1000)||!goodText(slide.summary)||!goodText(slide.notes)||!goodText(slide.section,100)||typeof slide.enabled!=='boolean'||!Array.isArray(slide.cards)||slide.cards.length>30||!Array.isArray(slide.stats)||slide.stats.length>8||!Array.isArray(slide.timeline)||slide.timeline.length>12||!Array.isArray(slide.periods)||slide.periods.length>12)throw Error('Invalid presentation slide.');
+    if(!slide||!goodText(slide.id,100)||ids.has(slide.id)||!kinds.has(slide.kind)||!goodText(slide.title,200)||!goodText(slide.subtitle,1000)||!goodText(slide.summary)||!goodText(slide.notes)||!goodText(slide.section,100)||typeof slide.enabled!=='boolean'||!Array.isArray(slide.cards)||slide.cards.length>4||!Array.isArray(slide.stats)||slide.stats.length>8||!Array.isArray(slide.timeline)||slide.timeline.length>12||!Array.isArray(slide.periods)||slide.periods.length>12)throw Error('Invalid presentation slide.');
     ids.add(slide.id);
     if(slide.cards.some(c=>!goodText(c.title,500)||!goodText(c.detail)||!goodText(c.meta,1000)||!goodText(c.status,100)||!/^#[0-9a-f]{6}$/i.test(c.color||'')))throw Error('Invalid presentation card.');
     if(slide.stats.some(x=>!goodText(x.label,200)||!goodText(x.value,100)))throw Error('Invalid presentation metric.');

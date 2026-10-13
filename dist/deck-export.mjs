@@ -31,7 +31,7 @@ function statRow(pptx,slide,stats,y){
 }
 function cardGrid(pptx,slide,cards,start){
   if(!cards.length){tx(slide,'No activities or dependencies to display in this section.',0.7,start+0.4,11.7,0.7,{fontSize:15,color:C.muted});return;}
-  const max=Math.min(cards.length,6),columns=2,rows=Math.ceil(max/columns),gap=0.16;
+  const max=Math.min(cards.length,4),columns=2,rows=Math.ceil(max/columns),gap=0.16;
   const cellW=(12.28-gap)/2,available=Math.max(1.5,6.77-start),cellH=Math.min(1.48,(available-(rows-1)*gap)/rows);
   for(let i=0;i<max;i++){
     const card=cards[i],x=0.52+(i%2)*(cellW+gap),y=start+Math.floor(i/2)*(cellH+gap);
