@@ -1,4 +1,5 @@
 import {validateRoadmap,periodLabel,quarterOf,blockers,scheduleConflicts,addMonths,addDays} from './model.mjs';
+import {normalizeDeckTheme} from './deck-theme.mjs';
 
 const humanDate=s=>new Intl.DateTimeFormat('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'}).format(new Date(s+'T12:00:00Z'));
 const clip=(s,n=210)=>{const value=String(s||'').replace(/\s+/g,' ').trim();return value.length>n?value.slice(0,n-1).trimEnd()+'…':value;};
@@ -69,11 +70,12 @@ export function buildRoadmapDeck(source,settings={}){
     slides.push(makeSlide('cards','Activity deep dive',a.title,(track?.name||'Workstream')+' · '+a.status,options.includeDescriptions?a.description:'',{accent:track?.color,cards:[{title:'Delivery dates',detail:humanDate(a.start)+' – '+humanDate(a.end),meta:a.status,status:a.status,color:track?.color||'#376d62'},{title:'Prerequisites',detail:deps.join(' · ')||'No prerequisites',meta:deps.length+' linked activities',status:deps.length?'Blocked':'Ready',color:'#376d62'},...(options.includeOwners&&a.owner?[{title:'Accountable owner',detail:a.owner,meta:'Owner',status:'',color:'#376d62'}]:[])]}));
   }
   slides.push(makeSlide('cards','Decisions & next steps','What happens next','Suggested priorities from the current plan','These suggestions are derived from roadmap statuses and dependencies. Edit them for the intended audience before exporting.',{cards:[...ready.slice(0,m.conflicts?3:4).map(a=>({title:a.title,detail:'Ready to progress · '+humanDate(a.start),meta:r.tracks.find(t=>t.id===a.trackId)?.name||'',status:a.status,color:'#376d62'})),...(m.conflicts?[{title:'Resolve date overlaps',detail:m.conflicts+' activities have overlapping predecessor dates.',meta:'Schedule review',status:'Date conflict',color:'#b38b48'}]:[])].slice(0,4)}));
-  return {schemaVersion:1,sourceTitle:r.title,generatedAt:new Date().toISOString(),options,slides};
+  return {schemaVersion:1,sourceTitle:r.title,generatedAt:new Date().toISOString(),options,theme:normalizeDeckTheme(),slides};
 }
 export function validateDeck(deck){
   if(!deck||deck.schemaVersion!==1||!Array.isArray(deck.slides)||deck.slides.length<1||deck.slides.length>1500)throw Error('Invalid presentation deck.');
   if(typeof deck.sourceTitle!=='string'||deck.sourceTitle.length>160)throw Error('Invalid presentation source.');
+  normalizeDeckTheme(deck.theme); // Legacy drafts without a theme retain the Mightora defaults.
   const kinds=new Set(['cover','summary','timeline','cards']);
   const goodText=(v,max=8000)=>typeof v==='string'&&v.length<=max;
   const ids=new Set();

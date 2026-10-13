@@ -50,9 +50,9 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 
 ## Presentation preview and PowerPoint export
 
-Select **Presentation preview** from an open roadmap. The studio opens in the same browser tab using a temporary session-storage copy. It creates slides for the roadmap at different levels: executive summary, a paginated timeline, dependency links, individual quarters, workstreams and next steps. You can include individual activity deep dives if needed.
+Select **Edit PowerPoint** from an open roadmap, or choose **Editable PowerPoint (.pptx)** in the Export menu. The studio opens in the same browser tab using a temporary session-storage copy. It creates slides for the roadmap at different levels: executive summary, a paginated timeline, dependency links, individual quarters, workstreams and next steps. You can include individual activity deep dives if needed.
 
-Edit slide text and content cards, reorder or exclude slides, add commentary and presenter notes, then export **PowerPoint (.pptx)**. Slide content uses native editable PowerPoint text boxes and shapes, not screenshots. The roadmap itself is never changed by presentation edits. Use **Save deck draft** to export your edits as JSON and **Open deck draft** to restore them. A regenerated deck replaces edits, so save a draft first.
+Edit slide text and content cards, reorder or exclude slides, add commentary and presenter notes, then export **PowerPoint (.pptx)**. Slide content uses native editable PowerPoint text boxes and shapes, including the cards and timeline cells, not screenshots. The roadmap itself is never changed by presentation edits. Use **Save deck draft** to export your edits as JSON and **Open deck draft** to restore them. A regenerated deck replaces edits, so save a draft first.
 
 The editor and preview run locally. When you click **Export PowerPoint**, the browser loads PptxGenJS from jsDelivr; this requires network access and makes a request to that provider. No roadmap data is sent to a Mightora server. Owner names are excluded by default. See [presentation documentation](dist/docs/presentations.html) and [privacy details](PRIVACY.md).
 
@@ -62,7 +62,7 @@ The roadmap uses the full available page width without a permanent left sidebar.
 
 ## Trust badges and consistent iconography
 
-The homepage displays live **Build & tests** and **CodeQL analysis** workflow status badges linked to their GitHub results, plus the project’s **MIT licence** badge. These are verifiable status indicators, not security certifications or independent audits. The badge images are served by GitHub and Shields.io, as documented in [PRIVACY.md](PRIVACY.md).
+The homepage displays live **Build & tests** and **CodeQL analysis** workflow status badges at the bottom of the page, immediately above the footer, linked to their GitHub results, plus the project’s **MIT licence** badge. These are verifiable status indicators, not security certifications or independent audits. The badge images are served by GitHub and Shields.io, as documented in [PRIVACY.md](PRIVACY.md).
 
 The compact Manage menu, editor controls, roadmap statistics and community actions use a single accessible, inline SVG icon set in [`dist/icons.mjs`](dist/icons.mjs). The icons share a 24px viewBox, 1.8px rounded strokes and currentColor so they follow the Mightora shared theme. Decorative icons have `aria-hidden="true"`; labels remain visible and accessible.
 

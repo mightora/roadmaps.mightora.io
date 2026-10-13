@@ -4,6 +4,7 @@ import {readFileSync} from 'node:fs';
 import {seedRoadmap} from '../dist/model.mjs';
 import {buildRoadmapDeck,validateDeck,activeSlides} from '../dist/deck-model.mjs';
 import {createPowerPoint} from '../dist/deck-export.mjs';
+import {DEFAULT_DECK_THEME,normalizeDeckTheme,presentationPalette,DECK_THEME_PRESETS} from '../dist/deck-theme.mjs';
 
 const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const roadmap=seedRoadmap();
@@ -105,6 +106,8 @@ test('PowerPoint export uses editable native shapes and text for every included 
 test('preview, editor, save/load, presentation entry point and help page are wired',()=>{
   const html=read('dist/index.html'),ui=read('dist/deck-ui.mjs'),page=read('dist/deck.html'),app=read('dist/app.mjs');
   assert.ok(html.includes('id="presentation-preview"'));
+  assert.ok(html.includes('<option value="pptx">Editable PowerPoint (.pptx)</option>'));
+  assert.ok(app.includes("if($('#export-format').value==='pptx'){openPresentationStudio();return;}"));
   assert.ok(app.includes("sessionStorage.setItem('mightora-roadmaps-presentation-source-v1'"));
   assert.ok(page.includes('id="deck-stage"')&&page.includes('id="deck-editor"'));
   assert.ok(page.includes('id="deck-export-pptx"'));
@@ -112,4 +115,46 @@ test('preview, editor, save/load, presentation entry point and help page are wir
   assert.ok(ui.includes('id="deck-current-enabled"'));
   assert.ok(ui.includes('sessionStorage.setItem(DRAFT'));
   assert.ok(read('dist/docs/presentations.html').includes('Presentation exports'));
+});
+
+
+test('export retains native editable timeline elements and full presenter notes',()=>{
+  const deck=buildRoadmapDeck(roadmap);
+  const card=deck.slides.find(s=>s.cards.length).cards[0];
+  card.detail='Details preserved without truncation: '+('long delivery explanation '.repeat(35));
+  const pptx=createPowerPoint(deck,FakePptx);
+  const texts=pptx.slides.flatMap(s=>s.texts.map(t=>t.text));
+  const shapes=pptx.slides.flatMap(s=>s.shapes);
+  assert.ok(shapes.length>30,'Expected many individual native PowerPoint shapes');
+  assert.ok(texts.includes('WORKSTREAM'),'Timeline column headings must be editable');
+  assert.ok(texts.includes(roadmap.tracks[0].name),'Workstream names should remain editable');
+  assert.ok(pptx.slides.some(s=>s.notes.some(n=>n.includes(card.detail))),'Unabridged card details should remain in notes');
+  assert.ok(shapes.every(s=>['rect','roundRect'].includes(s.type)));
+});
+
+test('a custom deck theme uses the specified fonts and colours in native PowerPoint content',()=>{
+  const deck=buildRoadmapDeck(roadmap);
+  deck.theme={...DEFAULT_DECK_THEME,headingFont:'Georgia',bodyFont:'Arial',
+    primary:'#231F50',accent:'#5646AA',highlight:'#FEE8AA',
+    background:'#FEF9EE',text:'#29243A',muted:'#615D78'};
+  const pptx=createPowerPoint(deck,FakePptx);
+  assert.equal(pptx.theme.headFontFace,'Georgia');
+  assert.equal(pptx.theme.bodyFontFace,'Arial');
+  assert.equal(pptx.slides[1].background.color,'FEF9EE');
+  assert.ok(pptx.slides.flatMap(s=>s.texts).some(t=>t.text===roadmap.title&&t.opts.fontFace==='Georgia'));
+  assert.ok(pptx.slides.flatMap(s=>s.texts).some(t=>t.opts.fontFace==='Arial'&&t.opts.color==='615D78'));
+  assert.ok(pptx.slides.flatMap(s=>s.shapes).some(s=>s.opts.fill.color==='231F50'));
+  assert.equal(presentationPalette(deck.theme).green,'5646AA');
+});
+test('presentation themes are validated, persisted, and older theme-free drafts remain valid',()=>{
+  const deck=buildRoadmapDeck(roadmap);
+  assert.deepEqual(deck.theme,DEFAULT_DECK_THEME);
+  assert.equal(DECK_THEME_PRESETS.ocean.colors.primary,'#143D59');
+  assert.doesNotThrow(()=>validateDeck(deck));
+  delete deck.theme;assert.doesNotThrow(()=>validateDeck(deck));
+  deck.theme={...DEFAULT_DECK_THEME,headingFont:'Arial; color:red'};
+  assert.throws(()=>validateDeck(deck),/font/);
+  deck.theme={...DEFAULT_DECK_THEME,primary:'#123456;evil'};
+  assert.throws(()=>validateDeck(deck),/colour/);
+  assert.deepEqual(normalizeDeckTheme({}),DEFAULT_DECK_THEME);
 });
