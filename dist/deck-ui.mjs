@@ -1,6 +1,7 @@
 import {buildRoadmapDeck,validateDeck,activeSlides} from './deck-model.mjs';
 import {downloadPowerPoint} from './deck-export.mjs';
 import {validateRoadmap} from './model.mjs';
+import {normalizeDeckTheme,DECK_THEME_PRESETS,DECK_THEME_COLORS,DECK_FONT_SUGGESTIONS} from './deck-theme.mjs';
 
 const SOURCE='mightora-roadmaps-presentation-source-v1';
 const DRAFT='mightora-roadmaps-presentation-draft-v1';
@@ -13,6 +14,25 @@ let source=null,deck=null,selected=0;
 function status(message,error=false){$('#deck-status').textContent=message;$('#deck-status').style.color=error?'#a24632':'#276c47';}
 function store(){try{sessionStorage.setItem(DRAFT,JSON.stringify(deck));}catch{status('Unable to save a temporary deck draft in this browser.',true);}}
 function selectedSlide(){return deck?.slides[selected];}
+function currentTheme(){return normalizeDeckTheme(deck.theme);}
+function syncThemePreview(){
+  const theme=currentTheme(),root=$('#deck-stage');
+  for(const [key,value] of Object.entries({
+    '--dk-deep':theme.primary,'--dk-green':theme.accent,'--dk-mint':theme.highlight,
+    '--dk-paper':theme.background,'--dk-ink':theme.text,'--dk-muted':theme.muted,
+    '--dk-heading-font':JSON.stringify(theme.headingFont)+', sans-serif',
+    '--dk-body-font':JSON.stringify(theme.bodyFont)+', sans-serif'
+  }))root.style.setProperty(key,value);
+}
+function renderTheme(){
+ const t=currentTheme();
+ $('#deck-font-heading').value=t.headingFont;
+ $('#deck-font-body').value=t.bodyFont;
+ for(const [key] of DECK_THEME_COLORS)$('#deck-color-'+key).value=t[key];
+ const preset=Object.entries(DECK_THEME_PRESETS).find(([,p])=>Object.entries(p.colors).every(([key,value])=>value.toUpperCase()===t[key]));
+ $('#deck-theme-preset').value=preset?.[0]||'custom';
+ syncThemePreview();
+}
 function summaryCount(){return activeSlides(deck).length+' included / '+deck.slides.length+' total';}
 function slideHtml(s,index){
   const footer='<div class="deck-slide-footer"><span>MIGHTORA ROADMAPS · EDITABLE PRESENTATION</span><span>'+(index+1)+' / '+deck.slides.length+'</span></div>';
@@ -28,6 +48,7 @@ function renderList(){
 }
 function renderPreview(){
   const s=selectedSlide();if(!s)return;
+  syncThemePreview();
   $('#deck-stage').innerHTML=slideHtml(s,selected);
   $('#deck-active-title').textContent=s.title||'Untitled slide';
   $('#deck-position').textContent='Slide '+(selected+1)+' of '+deck.slides.length+(s.enabled?'':' · excluded from export');
@@ -58,12 +79,22 @@ function renderEditor(){
   html+='<p class="deck-editor-note">Edits affect this presentation draft only. You can save a deck draft as JSON, reopen it later and export the same slides to PowerPoint.</p>';
   $('#deck-editor').innerHTML=html;
 }
-function render(){renderList();renderPreview();renderEditor();}
+function render(){renderList();renderPreview();renderEditor();renderTheme();}
 function mutate(){store();renderPreview();renderList();}
 function select(i){if(i<0||i>=deck.slides.length)return;selected=i;render();$('#deck-stage').focus?.();}
 function downloadText(text,name,type){
   const url=URL.createObjectURL(new Blob([text],{type})),a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+function applyTheme(patch){
+ try{deck.theme=normalizeDeckTheme({...currentTheme(),...patch});store();renderTheme();status('Presentation design updated. Changes will be included in the PowerPoint export.');}
+ catch(error){status(error.message,true);renderTheme();}
+}
+$('#deck-theme-preset').addEventListener('change',e=>{
+ const preset=DECK_THEME_PRESETS[e.target.value];if(preset)applyTheme(preset.colors);
+});
+for(const key of ['heading','body'])$('#deck-font-'+key).addEventListener('change',e=>applyTheme({[key==='heading'?'headingFont':'bodyFont']:e.target.value.trim()}));
+for(const [key] of DECK_THEME_COLORS)$('#deck-color-'+key).addEventListener('input',e=>applyTheme({[key]:e.target.value}));
+$('#deck-theme-reset').addEventListener('click',()=>{deck.theme=normalizeDeckTheme();store();renderTheme();status('Mightora presentation design restored.');});
 function optionsFromForm(){return {includeOwners:$('#deck-opt-owners').checked,includeDescriptions:$('#deck-opt-descriptions').checked,includeDeepDives:$('#deck-opt-deepdives').checked};}
 function setOptions(o={}){$('#deck-opt-owners').checked=!!o.includeOwners;$('#deck-opt-descriptions').checked=o.includeDescriptions!==false;$('#deck-opt-deepdives').checked=!!o.includeDeepDives;}
 function loadDraft(){
@@ -107,7 +138,7 @@ $('#deck-add-slide').onclick=()=>{
 $('#deck-regenerate').onclick=()=>{
   if(!source){status('The original roadmap is not available. Reopen the editor to regenerate.',true);return;}
   if(!confirm('Regenerate this deck from the roadmap? This replaces all slide edits, order and inclusion choices. Save a deck draft first if you need to keep them.'))return;
-  deck=buildRoadmapDeck(source,optionsFromForm());selected=0;store();render();status('Slides regenerated from the original roadmap.');
+  const theme=currentTheme();deck=buildRoadmapDeck(source,optionsFromForm());deck.theme=theme;selected=0;store();render();status('Slides regenerated from the original roadmap.');
 };
 $('#deck-download-json').onclick=()=>{if(!deck)return;downloadText(JSON.stringify(validateDeck(deck),null,2),(deck.sourceTitle||'roadmap').replace(/[^a-z0-9]+/gi,'-').toLowerCase()+'-deck.json','application/json');status('Deck draft saved as JSON.');};
 $('#deck-import-json').onclick=()=>$('#deck-json-file').click();

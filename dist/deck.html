@@ -35,6 +35,17 @@
         <div class="deck-preview-toolbar"><div><strong id="deck-active-title">Presentation preview</strong><span id="deck-position"></span></div><div class="deck-preview-controls"><button type="button" id="deck-prev" class="deck-button secondary" aria-label="Previous slide">← Previous</button><button type="button" id="deck-next" class="deck-button secondary" aria-label="Next slide">Next →</button><button type="button" id="deck-fullscreen" class="deck-button secondary">Full screen</button></div></div>
         <div class="deck-stage-wrap" id="deck-stage-wrap"><div id="deck-stage" class="deck-stage" aria-live="polite" aria-label="Current presentation slide"></div></div>
         <div class="deck-source-notice"><strong>What this deck covers:</strong> Title, executive summary, roadmap timeline, dependency analysis, quarter-by-quarter delivery, workstream detail, delivery risks and next steps. Enable deep dives for individual activity slides.</div>
+        <section class="deck-theme-options" aria-labelledby="deck-theme-title">
+          <div class="deck-options-heading"><h2 id="deck-theme-title">Fonts &amp; colours</h2><p>Choose a ready-made palette or customise the complete presentation. Changes appear in the preview and exported PowerPoint.</p></div>
+          <div class="deck-theme-fields">
+            <label>Colour theme<select id="deck-theme-preset"><option value="mightora">Mightora</option><option value="ocean">Ocean</option><option value="graphite">Graphite</option><option value="plum">Plum</option><option value="custom">Custom</option></select></label>
+            <label>Heading font<input id="deck-font-heading" type="text" list="deck-fonts" maxlength="80" spellcheck="false"></label>
+            <label>Body font<input id="deck-font-body" type="text" list="deck-fonts" maxlength="80" spellcheck="false"></label>
+          </div>
+          <datalist id="deck-fonts"><option value="Aptos Display"><option value="Aptos"><option value="Arial"><option value="Calibri"><option value="Segoe UI"><option value="Georgia"><option value="Verdana"><option value="Trebuchet MS"><option value="Tahoma"><option value="Times New Roman"><option value="Inter"><option value="Century Gothic"></datalist>
+          <div class="deck-color-fields"><label>Primary / cover <input id="deck-color-primary" type="color"></label><label>Accent <input id="deck-color-accent" type="color"></label><label>Highlight <input id="deck-color-highlight" type="color"></label><label>Background <input id="deck-color-background" type="color"></label><label>Body text <input id="deck-color-text" type="color"></label><label>Secondary text <input id="deck-color-muted" type="color"></label></div>
+          <div class="deck-theme-foot"><p>Use installed fonts for the most consistent results in PowerPoint. Design settings are saved with the deck draft.</p><button id="deck-theme-reset" type="button" class="deck-button secondary">Reset design</button></div>
+        </section>
         <div class="deck-options">
           <div class="deck-options-heading"><h2>Build options</h2><p>Changes here take effect when you regenerate the deck. Regeneration replaces presentation edits.</p></div>
           <div class="deck-option-controls">
