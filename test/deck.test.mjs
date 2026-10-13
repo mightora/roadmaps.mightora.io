@@ -88,7 +88,7 @@ test('PowerPoint export uses editable native shapes and text for every included 
   assert.ok(pptx.slides.every(s=>s.texts.length>3&&s.shapes.length>1));
   assert.ok(pptx.slides.some(s=>s.texts.some(t=>t.text===roadmap.title)));
   assert.ok(pptx.slides.some(s=>s.texts.some(t=>t.text==='WORKSTREAM')));
-  assert.ok(pptx.slides[0].notes.includes('Present this to the steering group'));
+  assert.ok(pptx.slides[0].notes.some(text=>text.includes('Present this to the steering group')));
 });
 
 test('preview, editor, save/load, presentation entry point and help page are wired',()=>{
