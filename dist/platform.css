@@ -97,10 +97,10 @@ body{display:block;background:var(--bg,#f9fafb);color:var(--text,#111827)}:where
 .card-labels .mi-icon,.dep-count .mi-icon{width:12px;height:12px;vertical-align:-.15em;margin-right:3px}
 .graph-key .mi-icon{width:14px;height:14px;margin-right:4px}
 .workstream-actions .mi-icon{width:14px;height:14px;margin-right:5px}
-.quick-jump-nav{position:sticky;top:0;z-index:24;display:flex;align-items:center;gap:clamp(12px,2vw,28px);padding:10px clamp(20px,4vw,48px);border-bottom:1px solid var(--border,#e3e8e0);background:var(--bg-card,#fff);box-shadow:0 2px 9px #163a2810;overflow-x:auto;scrollbar-width:thin}
+.quick-jump-nav{position:sticky;top:var(--header-h,60px);z-index:24;display:flex;align-items:center;gap:clamp(12px,2vw,28px);padding:10px clamp(20px,4vw,48px);border-bottom:1px solid var(--border,#e3e8e0);background:var(--bg-card,#fff);box-shadow:0 2px 9px #163a2810;overflow-x:auto;scrollbar-width:thin}
 .quick-jump-nav a{white-space:nowrap;text-decoration:none;font-size:11px;font-weight:650;color:var(--text-muted,#61756a);padding:5px 0;border-bottom:2px solid transparent}
 .quick-jump-nav a:hover{color:var(--text,#193e2f);border-bottom-color:var(--fb-accent,#059669)}
-#workspace,#about-roadmaps,#trust-and-transparency,#open-source{scroll-margin-top:65px}
+#workspace,#about-roadmaps,#trust-and-transparency,#open-source{scroll-margin-top:calc(var(--header-h,60px) + 60px)}
 .trust-strip{background:var(--bg-card,#fff);border-bottom:1px solid var(--border,#e3e8e0)}
 .trust-strip-inner{display:flex;align-items:center;justify-content:space-between;gap:14px 22px;flex-wrap:wrap;padding:15px clamp(20px,4vw,48px);max-width:1700px;margin:auto}
 .trust-strip-intro{display:flex;align-items:center;gap:11px;flex:none}
