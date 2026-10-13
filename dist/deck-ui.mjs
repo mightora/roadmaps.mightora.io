@@ -43,7 +43,9 @@ function renderEditor(){
   let html='<label class="deck-toggle"><input type="checkbox" id="deck-current-enabled" '+(s.enabled?'checked':'')+'> Include this slide in PowerPoint</label>'+
     field('Slide title',s.title,'data-field="title"')+field('Subtitle',s.subtitle,'data-field="subtitle"')+field('Introduction / summary',s.summary,'data-field="summary"',3);
   if(s.stats.length)html+='<h3 class="deck-editor-heading">Key figures</h3>'+s.stats.map((stat,i)=>'<div class="deck-editor-card">'+field('Label',stat.label,'data-stat-index="'+i+'" data-stat-field="label"')+field('Value',stat.value,'data-stat-index="'+i+'" data-stat-field="value"')+'</div>').join('');
-  if(s.kind==='timeline'){
+  if(s.kind==='cover'){
+    html+='<p class="deck-editor-note">The cover uses its title, subtitle and introduction. The executive overview on the next slide contains the key figures.</p>';
+  }else if(s.kind==='timeline'){
     html+='<h3 class="deck-editor-heading">Quarter labels</h3>'+s.periods.map((p,i)=>field('Quarter '+(i+1),p,'data-period-index="'+i+'"')).join('');
     html+='<h3 class="deck-editor-heading">Workstream labels</h3>'+s.timeline.map((row,i)=>field('Workstream '+(i+1),row.title,'data-row-index="'+i+'"')).join('');
     html+='<p class="deck-editor-note">Activity counts and completion states come from the roadmap snapshot. To change those, edit the roadmap and regenerate the presentation.</p>';
