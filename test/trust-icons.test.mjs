@@ -18,7 +18,7 @@ test('homepage shows genuine linked project badges, not invented certification m
   assert.ok(html.includes('alt="Build and tests: live GitHub Actions status"'));
   assert.ok(html.includes('alt="CodeQL analysis: live GitHub Actions status"'));
   assert.ok(html.includes('not an independent audit or security certification'));
-  assert.ok(read('PRIVACY.md').includes('Shields.io'));
+  assert.match(read('PRIVACY.md'),/The homepage displays live GitHub Actions workflow status badges/);
 });
 
 test('sidebar navigation uses a unified SVG set and retains readable names',()=>{
