@@ -1,4 +1,5 @@
 import { newId } from './ids.mjs';
+import { icon } from './icons.mjs';
 import { STATUSES, COLORS, seedRoadmap, validateRoadmap, validateReadiness, updateActivity, deleteActivity, quarterOf, periodLabel, addMonths, addDays, blockers, scheduleConflicts, downstream } from './model.mjs';
 import { initialise, saveRoadmap, isEditor, organisationMembers, assigneeField, decorateDrawer, demoRuntime, communityRuntime, sharedPreview, setBusy } from './portal.mjs';
 import { roadmapToCsv, roadmapFromCsv } from './csv.mjs';
@@ -37,8 +38,8 @@ function render(){
   $('#roadmap-title').textContent=roadmap.title;
   $('#subtitle').textContent=`${roadmap.client} · ${formatMonth(roadmap.startDate)} – ${formatMonth(addMonths(roadmap.startDate,roadmap.periodCount*3-1))} · A connected path to repeatable delivery`;
   const all=roadmap.activities,total=all.length,done=all.filter(a=>a.status==='Done').length;
-  const stats=[['Total activities',total,`${roadmap.tracks.length} connected workstreams`,'▦'],['In progress',all.filter(a=>a.status==='In progress').length,`${done} completed activities`,'↗'],['Waiting on dependencies',all.filter(a=>a.status!=='Done'&&blockers(a,roadmap).length).length,'Complete predecessors to unlock','◇'],['Completion',`${total?Math.round(done/total*100):0}%`,`${done} of ${total} activities complete`,'✓']];
-  $('#stats').innerHTML=stats.map(([label,value,caption,icon],i)=>`<div class="stat"><div style="width:100%"><div class="stat-label">${label}</div><span class="stat-value">${value}</span><div class="stat-caption">${caption}</div>${i===3?`<div class="stat-track"><span style="width:${total?done/total*100:0}%"></span></div>`:''}</div><span class="stat-icon">${icon}</span></div>`).join('');
+  const stats=[['Total activities',total,`${roadmap.tracks.length} connected workstreams`,'roadmap'],['In progress',all.filter(a=>a.status==='In progress').length,`${done} completed activities`,'trending'],['Waiting on dependencies',all.filter(a=>a.status!=='Done'&&blockers(a,roadmap).length).length,'Complete predecessors to unlock','dependencies'],['Completion',`${total?Math.round(done/total*100):0}%`,`${done} of ${total} activities complete`,'check']];
+  $('#stats').innerHTML=stats.map(([label,value,caption,symbol],i)=>`<div class="stat"><div style="width:100%"><div class="stat-label">${label}</div><span class="stat-value">${value}</span><div class="stat-caption">${caption}</div>${i===3?`<div class="stat-track"><span style="width:${total?done/total*100:0}%"></span></div>`:''}</div><span class="stat-icon">${icon(symbol)}</span></div>`).join('');
   document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
   const visible=filtered();
   $('#view-caption').textContent=view==='roadmap'?`${roadmap.tracks.length} workstreams · ${roadmap.periodCount} quarters · ${visible.length} activities`:view==='dependencies'?`${roadmap.activities.reduce((n,a)=>n+a.dependencies.length,0)} finish-to-start links · hover to trace a path`:`${visible.length} of ${all.length} activities`;
@@ -50,7 +51,7 @@ function render(){
 function card(a,graph=false){
   const track=roadmap.tracks.find(t=>t.id===a.trackId),blocked=blockers(a,roadmap).length,conflicts=scheduleConflicts(a,roadmap).length;
   const startQ=quarterOf(a.start,roadmap),endQ=quarterOf(a.end,roadmap);
-  return `<button type="button" class="activity-card" data-activity="${esc(a.id)}" ${graph?'':`draggable="${isEditor()}"`} style="--track-color:${track.color}" aria-label="${esc(a.title)}, ${esc(a.status)}, ${blocked} unfinished predecessors"><span class="activity-title">${esc(a.title)}</span><span class="card-labels"><span class="badge ${statusClass(a.status)}">${esc(a.status)}</span>${blocked&&a.status!=='Done'?'<span class="badge blocked" title="Unfinished prerequisites">◇ Waiting</span>':''}${conflicts?'<span class="badge conflict" title="The scheduled start overlaps a predecessor finish">! Dates</span>':''}${endQ>startQ?`<span class="badge">→ Q${endQ+1}</span>`:''}</span><span class="card-meta"><span class="owner">${esc(a.owner||'Unassigned')}</span><span class="dep-count" title="Predecessor activities">${a.dependencies.length?'◇ '+a.dependencies.length:formatDate(a.start)}</span></span>${graph?`<span class="track-meta">${esc(track.name)}</span>`:''}</button>`;
+  return `<button type="button" class="activity-card" data-activity="${esc(a.id)}" ${graph?'':`draggable="${isEditor()}"`} style="--track-color:${track.color}" aria-label="${esc(a.title)}, ${esc(a.status)}, ${blocked} unfinished predecessors"><span class="activity-title">${esc(a.title)}</span><span class="card-labels"><span class="badge ${statusClass(a.status)}">${esc(a.status)}</span>${blocked&&a.status!=='Done'?'<span class="badge blocked" title="Unfinished prerequisites">${icon("dependencies")} Waiting</span>':''}${conflicts?'<span class="badge conflict" title="The scheduled start overlaps a predecessor finish">${icon("alert")} Dates</span>':''}${endQ>startQ?`<span class="badge">${icon("arrow-right")} Q${endQ+1}</span>`:''}</span><span class="card-meta"><span class="owner">${esc(a.owner||'Unassigned')}</span><span class="dep-count" title="Predecessor activities">${a.dependencies.length?icon('link')+' '+a.dependencies.length:formatDate(a.start)}</span></span>${graph?`<span class="track-meta">${esc(track.name)}</span>`:''}</button>`;
 }
 function bindCards(container){
   container.querySelectorAll('[data-activity]').forEach(button=>{
@@ -87,7 +88,7 @@ function renderTable(activities){
 }
 function renderGraph(activities){
   if(!activities.length){$('#canvas').innerHTML='<div class="no-results">No activities match these filters.</div>';return;}
-  let html=`<div class="graph-key">◇ Activity-level links · only links between visible cards are drawn <span class="sr-only">Select a card to edit its dependencies.</span></div><div class="graph" style="--count:${roadmap.periodCount}"><svg class="graph-svg" aria-hidden="true"></svg>`;
+  let html=`<div class="graph-key">${icon("dependencies")} Activity-level links · only links between visible cards are drawn <span class="sr-only">Select a card to edit its dependencies.</span></div><div class="graph" style="--count:${roadmap.periodCount}"><svg class="graph-svg" aria-hidden="true"></svg>`;
   for(let i=0;i<roadmap.periodCount;i++){const p=periodLabel(roadmap,i);html+=`<div class="graph-column"><div class="graph-heading">${esc(p.title)} · ${p.phase}<small>${formatMonth(p.start)}</small></div>${activities.filter(a=>quarterOf(a.start,roadmap)===i).sort((a,b)=>a.start.localeCompare(b.start)).map(a=>card(a,true)).join('')}</div>`;}
   $('#canvas').innerHTML=html+'</div>';bindCards($('#canvas'));
   const graph=$('.graph');
