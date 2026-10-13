@@ -74,3 +74,71 @@ body{display:block;background:var(--bg,#f9fafb);color:var(--text,#111827)}:where
 @media print{.discovery-hero,.discovery-feature-grid{display:none}}
 
 @media(max-width:600px){.discovery-content{margin-right:0}}
+
+/* Mightora branded iconography and public trust indicators. Icons use the
+   same rounded, 1.8px stroke and inherit colours from the shared theme. */
+.mi-icon{display:inline-block;vertical-align:-.22em;width:18px;height:18px;flex:none;overflow:visible}
+.sidebar .nav-item{display:flex;align-items:center;gap:11px;min-height:42px;border-radius:9px;line-height:1.45;text-decoration:none;color:#c4d7cd;transition:background .15s ease,color .15s ease}
+.sidebar .nav-item .mi-icon{width:19px;height:19px;color:#b7d1c0;transition:color .15s ease}
+.sidebar .nav-item:hover:not(:disabled){background:rgba(255,255,255,.11);color:#fff}
+.sidebar .nav-item:hover .mi-icon{color:#e2efd5}
+.sidebar .nav-item.active{background:#265346;box-shadow:inset 3px 0 #d7e6b5;color:#fff;font-weight:700}
+.sidebar .nav-item.active .mi-icon{color:#d7e6b5}
+.sidebar .nav-item:focus-visible{outline:3px solid var(--fb-accent,#059669);outline-offset:2px;color:#fff}
+.sidebar .nav-item:disabled{opacity:.7}
+.sidebar .settings{margin-top:auto}
+.sidebar .settings .mi-icon{color:#c6dbc8}
+.sidebar .sidebar-footer{letter-spacing:1.1px}
+.sidebar .note-symbol .mi-icon{width:24px;height:24px}
+.roadmap-picker .text-button:has(.mi-icon),.heading-actions .button:has(.mi-icon){display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.roadmap-picker .mi-icon,.heading-actions .mi-icon{width:16px;height:16px}
+.search .mi-icon{width:17px;height:17px;flex:none;color:var(--text-muted,#6b7280)}
+.stat-icon .mi-icon{width:18px;height:18px}
+.card-labels .mi-icon,.dep-count .mi-icon{width:12px;height:12px;vertical-align:-.15em;margin-right:3px}
+.graph-key .mi-icon{width:14px;height:14px;margin-right:4px}
+.workstream-actions .mi-icon{width:14px;height:14px;margin-right:5px}
+.quick-jump-nav{position:sticky;top:var(--header-h,60px);z-index:24;display:flex;align-items:center;gap:clamp(12px,2vw,28px);padding:10px clamp(20px,4vw,48px);border-bottom:1px solid var(--border,#e3e8e0);background:var(--bg-card,#fff);box-shadow:0 2px 9px #163a2810;overflow-x:auto;scrollbar-width:thin}
+.quick-jump-nav a{white-space:nowrap;text-decoration:none;font-size:11px;font-weight:650;color:var(--text-muted,#61756a);padding:5px 0;border-bottom:2px solid transparent}
+.quick-jump-nav a:hover{color:var(--text,#193e2f);border-bottom-color:var(--fb-accent,#059669)}
+#workspace,#about-roadmaps,#trust-and-transparency,#open-source{scroll-margin-top:calc(var(--header-h,60px) + 60px)}
+.trust-strip{background:var(--bg-card,#fff);border-bottom:1px solid var(--border,#e3e8e0)}
+.trust-strip-inner{display:flex;align-items:center;justify-content:space-between;gap:14px 22px;flex-wrap:wrap;padding:15px clamp(20px,4vw,48px);max-width:1700px;margin:auto}
+.trust-strip-intro{display:flex;align-items:center;gap:11px;flex:none}
+.trust-strip-intro>.mi-icon{width:30px;height:30px;padding:6px;border-radius:9px;background:#e9f3e7;color:#286748}
+.trust-strip-intro>div{display:flex;flex-direction:column;gap:1px}
+.trust-strip-intro strong{font-size:12px;color:var(--text,#1e4635)}
+.trust-strip-intro span{font-size:10px;color:var(--text-muted,#61776b)}
+.trust-badge-list{display:flex;align-items:center;gap:9px;flex-wrap:wrap;flex:1}
+.trust-badge-list a{display:inline-flex;align-items:center;min-height:30px;padding:4px 6px;background:#fff;border:1px solid #e0e9df;border-radius:7px;text-decoration:none}
+.trust-badge-list a:hover{border-color:#9ec4a0;box-shadow:0 2px 8px #173c2b12}
+.trust-badge-list img{display:block;height:20px;width:auto;max-width:230px}
+.trust-strip-more{display:inline-flex;align-items:center;gap:6px;color:var(--text,#1d4c37);font-size:11px;font-weight:750;text-decoration:none;white-space:nowrap}
+.trust-strip-more .mi-icon{width:14px;height:14px}
+.trust-strip-more:hover{text-decoration:underline;text-underline-offset:3px}
+.community-proof{display:flex;flex-wrap:wrap;gap:9px 18px;margin:18px 0 24px}
+.community-proof span{display:inline-flex;align-items:center;gap:7px;font-size:11px;color:var(--text-muted,#61766b)}
+.community-proof .mi-icon{width:16px;height:16px;color:#23845a}
+.community-actions a strong{display:flex;align-items:center;gap:8px}
+.community-actions .mi-icon{width:18px;height:18px;color:#26865b}
+.mobile-menu-btn .fa-bars::before{content:"";display:inline-block;width:22px;height:18px;background:linear-gradient(to bottom,currentColor 0 2px,transparent 2px 8px,currentColor 8px 10px,transparent 10px 16px,currentColor 16px 18px);vertical-align:middle}
+@media(max-width:900px){.sidebar .nav-item{gap:9px}.sidebar .nav-item .mi-icon{width:18px;height:18px}}
+@media(max-width:600px){
+  .quick-jump-nav{gap:17px;padding:8px 15px}
+  .quick-jump-nav a{font-size:10px}
+  .trust-strip-inner{padding:12px 16px;gap:10px}
+  .trust-strip-intro{width:100%}
+  .trust-strip-intro>.mi-icon{width:26px;height:26px}
+  .trust-badge-list{gap:6px}
+  .trust-badge-list a{padding:3px 5px;min-height:27px}
+  .trust-badge-list img{height:18px}
+  .trust-strip-more{margin-top:2px}
+  .sidebar .nav-item{gap:6px;min-height:36px}
+  .sidebar .nav-item .mi-icon{width:16px;height:16px}
+  .sidebar nav{scrollbar-width:thin}
+  .heading-actions .mi-icon,.roadmap-picker .mi-icon{width:15px;height:15px}
+}
+@media(prefers-reduced-motion:reduce){.sidebar .nav-item,.sidebar .nav-item .mi-icon{transition:none}}
+@media print{.quick-jump-nav,.trust-strip{display:none!important}}
+
+/* Keep the shared Mightora header and quick links together while scrolling. */
+#brand-header{position:sticky;top:0;z-index:100}

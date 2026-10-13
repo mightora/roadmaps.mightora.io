@@ -81,3 +81,7 @@ body.published-page{margin:0;background:var(--paper);color:var(--text);font-fami
 @media print{body{background:#fff!important}.published-toolbar,.published-copy-feedback,.published-disclaimer,mightora-header,mightora-footer{display:none!important}.published-container{max-width:none;padding:0}.published-hero{background:#183c33!important;print-color-adjust:exact;-webkit-print-color-adjust:exact}.published-board-scroll{overflow:visible}.published-board{min-width:0;grid-template-columns:140px repeat(var(--quarters),minmax(100px,1fr))}.published-activity{break-inside:avoid}.published-next{break-before:page}}
 
 mightora-author .author-section-overlay{padding:2rem 1.5rem}
+
+/* Match published-view controls to the Mightora icon language. */
+.published-button{gap:8px}
+.published-button .mi-icon{width:16px;height:16px;flex:none;vertical-align:-.2em}

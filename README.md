@@ -46,6 +46,12 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 - Crawlable guide and example pages, structured app metadata, sitemap and social metadata.
 - Public example catalog, JSON Schema, agent data guide and `llms.txt` discovery aid.
 
+## Trust badges and consistent iconography
+
+The homepage displays live **Build & tests** and **CodeQL analysis** workflow status badges linked to their GitHub results, plus the project’s **MIT licence** badge. These are verifiable status indicators, not security certifications or independent audits. The badge images are served by GitHub and Shields.io, as documented in [PRIVACY.md](PRIVACY.md).
+
+The sidebar, editor controls, roadmap statistics and community actions use a single accessible, inline SVG icon set in [`dist/icons.mjs`](dist/icons.mjs). The icons share a 24px viewBox, 1.8px rounded strokes and currentColor so they follow the Mightora shared theme. Decorative icons have `aria-hidden="true"`; labels remain visible and accessible.
+
 ## Community, openness and trust
 
 This is a community project: **all editing features are free**, there are no accounts, and changes are reviewed in public pull requests. You can [report bugs](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=bug_report.yml), [propose features](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=feature_request.yml), or [contribute an industry example](https://github.com/mightora/roadmaps.mightora.io/issues/new?template=industry_example.yml). Start with [CONTRIBUTING.md](CONTRIBUTING.md).
