@@ -18,6 +18,7 @@ test('presentation includes title, high-level metrics, overview, dependencies, q
   assert.ok(deck.slides.some(s=>s.section==='Dependencies'));
   assert.ok(deck.slides.filter(s=>s.section==='Quarter-by-quarter').length>=roadmap.periodCount);
   assert.ok(deck.slides.filter(s=>s.section==='Workstream detail').length>=roadmap.tracks.length);
+  assert.ok(deck.slides.some(s=>s.section==='Delivery assurance'));
   assert.equal(deck.slides.at(-1).section,'Decisions & next steps');
   assert.ok(deck.slides.length>20);
   assert.ok(deck.slides.every(s=>s.cards.length<=4),'Slides must stay readable');

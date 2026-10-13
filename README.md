@@ -43,7 +43,7 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 - Read-only compressed snapshot links and editable recipient copies.
 - Illustrated documentation and SVG graphics across the site.
 - Local history, templates, portfolio summaries and SVG/print exports.
-- **Presentation studio:** generate an editable 16:9 slide deck with title, executive summary, multi-page roadmap timeline, dependencies, quarter-by-quarter delivery, workstream breakdowns and next steps. Preview every slide, edit text/cards, reorder or hide slides, add commentary, save/reopen a deck draft, and export an editable PowerPoint (.pptx). Optional activity deep dives and owner inclusion.
+- **Presentation studio:** generate an editable 16:9 slide deck with title, executive summary, multi-page roadmap timeline, dependencies, quarter-by-quarter delivery, workstream breakdowns, delivery risks and next steps. Preview every slide, edit text/cards, reorder or hide slides, add commentary, save/reopen a deck draft, and export an editable PowerPoint (.pptx). Optional activity deep dives and owner inclusion.
 - Crawlable guide and example pages, structured app metadata, sitemap and social metadata.
 - Public example catalog, JSON Schema, agent data guide and `llms.txt` discovery aid.
 
