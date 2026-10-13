@@ -1,0 +1,40 @@
+name: Temporary PowerPoint export smoke test
+on:
+  push:
+    branches: [feature/presentation-preview-editor-20261013]
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install PowerPoint runtime for smoke test
+        run: npm install --prefix /tmp/pptx --no-save --no-audit --no-fund pptxgenjs@3.12.0
+      - name: Generate real PPTX
+        run: |
+          node --input-type=module <<'JS'
+          import {createRequire} from 'node:module';
+          import {seedRoadmap} from './dist/model.mjs';
+          import {buildRoadmapDeck} from './dist/deck-model.mjs';
+          import {createPowerPoint} from './dist/deck-export.mjs';
+          const require=createRequire(import.meta.url);
+          const Pptx=require('/tmp/pptx/node_modules/pptxgenjs');
+          const model=buildRoadmapDeck(seedRoadmap(),{includeDeepDives:true});
+          const pptx=createPowerPoint(model,Pptx);
+          await pptx.writeFile({fileName:'/tmp/roadmap-smoke.pptx'});
+          console.log('Exported '+pptx._slides.length+' slides');
+          JS
+          python3 - <<'PY'
+          import zipfile,os
+          p='/tmp/roadmap-smoke.pptx'
+          with zipfile.ZipFile(p) as z:
+              slides=[n for n in z.namelist() if n.startswith('ppt/slides/slide') and n.endswith('.xml')]
+              print('PowerPoint valid ZIP with',len(slides),'slide XML parts, size',os.path.getsize(p))
+              assert len(slides)>20
+          PY
+      - name: Verify browser library URL
+        run: curl -fIL --max-time 25 https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js
