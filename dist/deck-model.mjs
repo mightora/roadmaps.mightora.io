@@ -72,7 +72,7 @@ export function validateDeck(deck){
   const goodText=(v,max=8000)=>typeof v==='string'&&v.length<=max;
   const ids=new Set();
   for(const slide of deck.slides){
-    if(!slide||!goodText(slide.id,100)||ids.has(slide.id)||!kinds.has(slide.kind)||!goodText(slide.title,200)||!goodText(slide.subtitle,1000)||!goodText(slide.summary)||!goodText(slide.notes)||!goodText(slide.section,100)||typeof slide.enabled!=='boolean'||!Array.isArray(slide.cards)||slide.cards.length>4||!Array.isArray(slide.stats)||slide.stats.length>8||!Array.isArray(slide.timeline)||slide.timeline.length>12||!Array.isArray(slide.periods)||slide.periods.length>12)throw Error('Invalid presentation slide.');
+    if(!slide||!goodText(slide.id,100)||ids.has(slide.id)||!kinds.has(slide.kind)||!goodText(slide.title,200)||!goodText(slide.subtitle,1000)||!goodText(slide.summary)||!goodText(slide.notes)||!goodText(slide.section,100)||typeof slide.enabled!=='boolean'||!Array.isArray(slide.cards)||slide.cards.length>4||!Array.isArray(slide.stats)||slide.stats.length>4||!Array.isArray(slide.timeline)||slide.timeline.length>12||!Array.isArray(slide.periods)||slide.periods.length>12)throw Error('Invalid presentation slide.');
     ids.add(slide.id);
     if(slide.cards.some(c=>!goodText(c.title,500)||!goodText(c.detail)||!goodText(c.meta,1000)||!goodText(c.status,100)||!/^#[0-9a-f]{6}$/i.test(c.color||'')))throw Error('Invalid presentation card.');
     if(slide.stats.some(x=>!goodText(x.label,200)||!goodText(x.value,100)))throw Error('Invalid presentation metric.');

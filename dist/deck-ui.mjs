@@ -34,7 +34,10 @@ function renderPreview(){
   $('#deck-prev').disabled=selected===0;$('#deck-next').disabled=selected===deck.slides.length-1;
   $('#deck-export-pptx').disabled=!activeSlides(deck).length;
 }
-const field=(label,value,attr,rows=0)=>'<label class="deck-field"><span>'+esc(label)+'</span>'+(rows?'<textarea '+attr+' rows="'+rows+'">'+esc(value)+'</textarea>':'<input type="text" '+attr+' value="'+esc(value)+'">')+'</label>';
+const field=(label,value,attr,rows=0)=>{
+  const max=attr.includes('data-field="title"')?200:attr.includes('data-field="subtitle"')?1000:attr.includes('data-field="summary"')||attr.includes('data-field="notes"')?8000:attr.includes('data-card-field="title"')?500:attr.includes('data-card-field="detail"')?8000:attr.includes('data-card-field="meta"')?1000:attr.includes('data-stat-field="label"')?200:attr.includes('data-stat-field="value"')?100:attr.includes('data-period-index')?80:attr.includes('data-row-index')?160:500;
+  return '<label class="deck-field"><span>'+esc(label)+'</span>'+(rows?'<textarea '+attr+' rows="'+rows+'" maxlength="'+max+'">'+esc(value)+'</textarea>':'<input type="text" '+attr+' maxlength="'+max+'" value="'+esc(value)+'">')+'</label>';
+};
 function renderEditor(){
   const s=selectedSlide();if(!s)return;
   let html='<label class="deck-toggle"><input type="checkbox" id="deck-current-enabled" '+(s.enabled?'checked':'')+'> Include this slide in PowerPoint</label>'+

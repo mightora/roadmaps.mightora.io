@@ -98,7 +98,8 @@ export function createPowerPoint(deck,PptxConstructor){
       if(model.kind==='timeline')timeline(pptx,slide,model);
       else{const y=statRow(pptx,slide,model.stats,2.72);cardGrid(pptx,slide,model.cards,y);}
     }
-    if(model.notes&&typeof slide.addNotes==='function')slide.addNotes(model.notes);
+    const speakerNotes=[model.notes,model.summary,...model.cards.map(c=>[c.title,c.detail,c.meta].filter(Boolean).join(' — '))].filter(Boolean).join('\n\n');
+    if(speakerNotes&&typeof slide.addNotes==='function')slide.addNotes(speakerNotes);
   });
   return pptx;
 }
