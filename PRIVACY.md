@@ -10,7 +10,7 @@ Import files are processed by the browser application. A saved-plan bookmark lin
 
 ## Network requests and third parties
 
-The static website is delivered through its web host (such as GitHub Pages). It also references external Mightora shared UI assets, jsDelivr-hosted scripts and styles, GitHub-hosted images and author images. Visiting the site therefore sends normal HTTP requests and associated technical metadata (such as IP address and browser information) to the relevant providers. Review their privacy policies for their own logging and retention practices. We do not claim that using the site results in zero network requests.
+The static website is delivered through its web host (such as GitHub Pages). It also references external Mightora shared UI assets, jsDelivr-hosted scripts and styles, GitHub-hosted images and author images. The homepage displays live GitHub Actions workflow status badges (build/tests and CodeQL) and an MIT licence badge served by Shields.io; viewing the page may request these images from GitHub and Shields.io. Badge statuses are not security certifications or independent audits. Visiting the site therefore sends normal HTTP requests and associated technical metadata (such as IP address and browser information) to the relevant providers. Review their privacy policies for their own logging and retention practices. We do not claim that using the site results in zero network requests.
 
 This repository does not currently implement a dedicated user-account service, server-side roadmap database or app-specific analytics. Future additions that change these behaviours should update this document before release.
 
