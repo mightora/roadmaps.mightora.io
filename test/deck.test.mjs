@@ -36,6 +36,16 @@ test('timeline paginates for readability and covers all workstreams and quarters
   assert.equal(names.size,roadmap.tracks.length);
 });
 
+test('roadmap overview counts activities in every quarter they span',()=>{
+  const plan=structuredClone(roadmap);
+  const activity=plan.activities.find(a=>a.id==='a2');
+  activity.end='2027-04-15';
+  const deck=buildRoadmapDeck(plan);
+  const row=deck.slides.filter(s=>s.kind==='timeline').find(s=>s.periods.includes('Q1')&&s.periods.includes('Q2')).timeline.find(r=>r.title==='Business outcomes');
+  assert.ok(row.cells[0].count>=2);
+  assert.ok(row.cells[1].count>=1);
+});
+
 test('every activity and dependency link appears in a detail slide',()=>{
   const deck=buildRoadmapDeck(roadmap);
   const details=deck.slides.filter(s=>s.section==='Workstream detail').flatMap(s=>s.cards);
