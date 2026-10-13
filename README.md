@@ -43,8 +43,17 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 - Read-only compressed snapshot links and editable recipient copies.
 - Illustrated documentation and SVG graphics across the site.
 - Local history, templates, portfolio summaries and SVG/print exports.
+- **Presentation studio:** generate an editable 16:9 slide deck with title, executive summary, multi-page roadmap timeline, dependencies, quarter-by-quarter delivery, workstream breakdowns, delivery risks and next steps. Preview every slide, edit text/cards, reorder or hide slides, add commentary, save/reopen a deck draft, and export an editable PowerPoint (.pptx). Optional activity deep dives and owner inclusion.
 - Crawlable guide and example pages, structured app metadata, sitemap and social metadata.
 - Public example catalog, JSON Schema, agent data guide and `llms.txt` discovery aid.
+
+## Presentation preview and PowerPoint export
+
+Select **Presentation preview** from an open roadmap. The studio opens in the same browser tab using a temporary session-storage copy. It creates slides for the roadmap at different levels: executive summary, a paginated timeline, dependency links, individual quarters, workstreams and next steps. You can include individual activity deep dives if needed.
+
+Edit slide text and content cards, reorder or exclude slides, add commentary and presenter notes, then export **PowerPoint (.pptx)**. Slide content uses native editable PowerPoint text boxes and shapes, not screenshots. The roadmap itself is never changed by presentation edits. Use **Save deck draft** to export your edits as JSON and **Open deck draft** to restore them. A regenerated deck replaces edits, so save a draft first.
+
+The editor and preview run locally. When you click **Export PowerPoint**, the browser loads PptxGenJS from jsDelivr; this requires network access and makes a request to that provider. No roadmap data is sent to a Mightora server. Owner names are excluded by default. See [presentation documentation](dist/docs/presentations.html) and [privacy details](PRIVACY.md).
 
 ## Trust badges and consistent iconography
 
