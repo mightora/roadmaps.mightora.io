@@ -19,11 +19,11 @@ function timelineSlides(r,periods){
   const result=[],tracks=page(r.tracks,7),chunks=page(periods,6);
   for(let i=0;i<tracks.length;i++)for(let j=0;j<chunks.length;j++){
     const quarterSet=chunks[j],rows=tracks[i].map(t=>({title:t.name,color:t.color,cells:quarterSet.map(p=>{
-      const activities=r.activities.filter(a=>a.trackId===t.id&&quarterOf(a.start,r)===p.index);
+      const activities=r.activities.filter(a=>a.trackId===t.id&&a.start<p.end&&a.end>=p.start);
       return {count:activities.length,done:activities.filter(a=>a.status==='Done').length,blocked:activities.filter(a=>a.status!=='Done'&&blockers(a,r).length).length};
     })}));
     const suffix=tracks.length*chunks.length>1?' · '+(result.length+1)+'/'+(tracks.length*chunks.length):'';
-    result.push(makeSlide('timeline','Roadmap overview','Delivery roadmap'+suffix,quarterSet[0].title+' – '+quarterSet.at(-1).title,'Activities are grouped by start quarter. Filled cells show the number of activities; completed work is shown in green.',{timeline:rows,periods:quarterSet.map(p=>p.title)}));
+    result.push(makeSlide('timeline','Roadmap overview','Delivery roadmap'+suffix,quarterSet[0].title+' – '+quarterSet.at(-1).title,'Cells show activities scheduled during each quarter, including work spanning multiple quarters. Completed work is shown in green.',{timeline:rows,periods:quarterSet.map(p=>p.title)}));
   }
   return result;
 }

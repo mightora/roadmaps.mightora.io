@@ -67,7 +67,7 @@ function timeline(pptx,slide,model){
       }
     }
   }
-  tx(slide,'Counts are grouped by activity start quarter. Amber cells include unfinished prerequisites.',0.55,6.63,12,0.2,{fontSize:9,color:C.muted});
+  tx(slide,'Counts include work spanning each quarter. Amber cells include unfinished prerequisites.',0.55,6.63,12,0.2,{fontSize:9,color:C.muted});
 }
 function cover(pptx,slide,model,index,total){
   rect(pptx,slide,0,0,13.333,7.5,C.deep);
