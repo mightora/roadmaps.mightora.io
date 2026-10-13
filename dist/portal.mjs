@@ -106,7 +106,7 @@ function publishDialog(){
     try{
       const base=new URL('published.html',new URL('./',location.href));
       const url=await makeShareUrl(callbacks.getRoadmap(),base.href,{includeOwners:$('#publish-owners').checked,includeDescriptions:$('#publish-descriptions').checked});
-      $('#generated-published-link').innerHTML='<label class="field"><span>Your published roadmap link</span><textarea id="published-url" readonly rows="4">'+esc(url)+'</textarea></label><div class="dialog-actions"><button class="button primary" id="copy-published-url">Copy published link</button><a class="button" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">${icon("arrow-up-right")} Open published view</a></div><p class="field-note">This snapshot is self-contained. The original remains editable in this browser; republish to reflect new changes.</p>';
+      $('#generated-published-link').innerHTML='<label class="field"><span>Your published roadmap link</span><textarea id="published-url" readonly rows="4">'+esc(url)+'</textarea></label><div class="dialog-actions"><button class="button primary" id="copy-published-url">Copy published link</button><a class="button" href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+icon("arrow-up-right")+' Open published view</a></div><p class="field-note">This snapshot is self-contained. The original remains editable in this browser; republish to reflect new changes.</p>';
       $('#copy-published-url').onclick=async()=>{try{await navigator.clipboard.writeText(url);toast('Published roadmap link copied.');}catch{$('#published-url').focus();$('#published-url').select();toast('Select and copy the published link.');}};
     }catch(error){errorInModal(error);}finally{b.disabled=false;}
   };
