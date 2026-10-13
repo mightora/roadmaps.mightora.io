@@ -7,6 +7,7 @@ const read=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 test('homepage shows genuine linked project badges, not invented certification marks',()=>{
   const html=read('dist/index.html');
   assert.match(html,/id="trust-and-transparency"/);
+  assert.equal((html.match(/id="trust-and-transparency"/g)||[]).length,1,'Homepage must have exactly one trust section');
   assert.match(html,/class="trust-badge-list"/);
   assert.ok(html.indexOf('id="open-source"')<html.indexOf('id="trust-and-transparency"'),'Trust section must follow the open source section');
   assert.ok(html.indexOf('id="trust-and-transparency"')<html.indexOf('<mightora-footer yaml-url="./footer.json">'),'Badges must precede the footer');

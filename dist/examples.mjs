@@ -146,6 +146,319 @@ const examples=[
     }
   },
   {
+    "id": "christmas-dinner",
+    "name": "Christmas dinner",
+    "title": "Christmas dinner: from shopping to serving",
+    "description": "An easy-to-follow plan showing how meal preparation overlaps across days.",
+    "roadmap": {
+      "schemaVersion": 1,
+      "title": "Christmas dinner: from shopping to serving",
+      "client": "Everyday life · example",
+      "startDate": "2026-12-01",
+      "periodCount": 4,
+      "quarterLabels": [
+        "Winter",
+        "Spring",
+        "Summer",
+        "Autumn"
+      ],
+      "tracks": [
+        {
+          "id": "christmas-dinner-t0",
+          "name": "Menu & guests",
+          "color": "#376d62"
+        },
+        {
+          "id": "christmas-dinner-t1",
+          "name": "Shopping",
+          "color": "#6979ab"
+        },
+        {
+          "id": "christmas-dinner-t2",
+          "name": "Preparation",
+          "color": "#bd8659"
+        },
+        {
+          "id": "christmas-dinner-t3",
+          "name": "Cooking & serving",
+          "color": "#8a70a1"
+        }
+      ],
+      "activities": [
+        {
+          "id": "christmas-dinner-a0",
+          "title": "Check guests and dietary needs",
+          "trackId": "christmas-dinner-t0",
+          "start": "2026-12-01",
+          "end": "2026-12-02",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": []
+        },
+        {
+          "id": "christmas-dinner-a1",
+          "title": "Choose menu",
+          "trackId": "christmas-dinner-t0",
+          "start": "2026-12-03",
+          "end": "2026-12-04",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a0"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a2",
+          "title": "Make shopping list",
+          "trackId": "christmas-dinner-t1",
+          "start": "2026-12-05",
+          "end": "2026-12-06",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a1"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a3",
+          "title": "Buy non-perishables",
+          "trackId": "christmas-dinner-t1",
+          "start": "2026-12-07",
+          "end": "2026-12-15",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a2"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a4",
+          "title": "Order main ingredients",
+          "trackId": "christmas-dinner-t1",
+          "start": "2026-12-07",
+          "end": "2026-12-12",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a2"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a5",
+          "title": "Collect fresh ingredients",
+          "trackId": "christmas-dinner-t1",
+          "start": "2026-12-19",
+          "end": "2026-12-22",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a4"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a6",
+          "title": "Prepare vegetables and sides",
+          "trackId": "christmas-dinner-t2",
+          "start": "2026-12-23",
+          "end": "2026-12-24",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a5"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a7",
+          "title": "Set the table",
+          "trackId": "christmas-dinner-t2",
+          "start": "2026-12-24",
+          "end": "2026-12-24",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": []
+        },
+        {
+          "id": "christmas-dinner-a8",
+          "title": "Cook Christmas dinner",
+          "trackId": "christmas-dinner-t3",
+          "start": "2026-12-25",
+          "end": "2026-12-25",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a6"
+          ]
+        },
+        {
+          "id": "christmas-dinner-a9",
+          "title": "Enjoy the leftovers",
+          "trackId": "christmas-dinner-t3",
+          "start": "2026-12-26",
+          "end": "2026-12-26",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-dinner-a8"
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "id": "christmas-preparation",
+    "name": "Getting ready for Christmas",
+    "title": "Getting ready for Christmas",
+    "description": "A simple four-week plan for presents, decorations, food and the big day.",
+    "roadmap": {
+      "schemaVersion": 1,
+      "title": "Getting ready for Christmas",
+      "client": "Everyday life · example",
+      "startDate": "2026-12-01",
+      "periodCount": 4,
+      "quarterLabels": [
+        "Winter",
+        "Spring",
+        "Summer",
+        "Autumn"
+      ],
+      "tracks": [
+        {
+          "id": "christmas-preparation-t0",
+          "name": "Planning",
+          "color": "#376d62"
+        },
+        {
+          "id": "christmas-preparation-t1",
+          "name": "Presents",
+          "color": "#6979ab"
+        },
+        {
+          "id": "christmas-preparation-t2",
+          "name": "Home & decorations",
+          "color": "#bd8659"
+        },
+        {
+          "id": "christmas-preparation-t3",
+          "name": "Food & celebrations",
+          "color": "#8a70a1"
+        }
+      ],
+      "activities": [
+        {
+          "id": "christmas-preparation-a0",
+          "title": "Decide budget",
+          "trackId": "christmas-preparation-t0",
+          "start": "2026-12-01",
+          "end": "2026-12-02",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": []
+        },
+        {
+          "id": "christmas-preparation-a1",
+          "title": "Write present list",
+          "trackId": "christmas-preparation-t1",
+          "start": "2026-12-03",
+          "end": "2026-12-05",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-preparation-a0"
+          ]
+        },
+        {
+          "id": "christmas-preparation-a2",
+          "title": "Order presents",
+          "trackId": "christmas-preparation-t1",
+          "start": "2026-12-06",
+          "end": "2026-12-14",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-preparation-a1"
+          ]
+        },
+        {
+          "id": "christmas-preparation-a3",
+          "title": "Put up decorations",
+          "trackId": "christmas-preparation-t2",
+          "start": "2026-12-08",
+          "end": "2026-12-12",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": []
+        },
+        {
+          "id": "christmas-preparation-a4",
+          "title": "Plan meals and guests",
+          "trackId": "christmas-preparation-t3",
+          "start": "2026-12-10",
+          "end": "2026-12-15",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-preparation-a0"
+          ]
+        },
+        {
+          "id": "christmas-preparation-a5",
+          "title": "Buy groceries",
+          "trackId": "christmas-preparation-t3",
+          "start": "2026-12-16",
+          "end": "2026-12-22",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-preparation-a4"
+          ]
+        },
+        {
+          "id": "christmas-preparation-a6",
+          "title": "Wrap presents",
+          "trackId": "christmas-preparation-t1",
+          "start": "2026-12-17",
+          "end": "2026-12-23",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-preparation-a2"
+          ]
+        },
+        {
+          "id": "christmas-preparation-a7",
+          "title": "Celebrate Christmas",
+          "trackId": "christmas-preparation-t3",
+          "start": "2026-12-25",
+          "end": "2026-12-25",
+          "status": "Planned",
+          "owner": "",
+          "description": "A simple example you can customise for your own plans.",
+          "dependencies": [
+            "christmas-preparation-a5",
+            "christmas-preparation-a6"
+          ]
+        }
+      ]
+    }
+  },
+  {
     "id": "energy",
     "name": "Energy",
     "title": "Community solar feasibility to delivery",
@@ -583,4 +896,4 @@ const examples=[
   }
 ];
 export const EXAMPLES=examples.map(({roadmap,...info})=>info);
-export function exampleRoadmap(id){const e=examples.find(e=>e.id===id);if(!e)throw new Error('Choose a supported industry example.');return structuredClone(e.roadmap);}
+export function exampleRoadmap(id){const e=examples.find(e=>e.id===id);if(!e)throw new Error('Choose a supported example.');return structuredClone(e.roadmap);}

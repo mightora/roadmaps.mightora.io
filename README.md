@@ -10,7 +10,7 @@ A free, open-source browser roadmap editor with editable workstreams, quarters, 
 
 ## Industry examples
 
-Choose Chemistry (safer coatings), Manufacturing (predictive maintenance), Energy (community solar) or Power Platform (app factory). Each starter has four quarters, four workstreams and eight activities. Examples are illustrative starting points, not regulatory advice or forecasts.
+Choose Chemistry (safer coatings), Manufacturing (predictive maintenance), Energy (community solar), Power Platform (app factory), **Getting ready for Christmas** or **Christmas dinner** from the same example dropdown. The two Christmas examples introduce planning, shopping, preparation and dependencies with everyday language. All examples are contributed through `examples/*.json` and included automatically in the dropdown by the build. Examples are illustrative starting points, not regulatory advice or forecasts.
 
 Add new examples by editing a single JSON file in `examples/` and opening a pull request. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -37,6 +37,7 @@ For another host, run `SITE_URL=https://your-host/your-path/ npm run build`.
 
 - Multiple roadmaps, editable workstreams and 4–12 quarters with custom labels.
 - Multiple activities in a cell; cross-workstream prerequisites, cycle prevention and blocker checks.
+- Switch the roadmap timeline between **weeks, months and quarters** without changing activity dates. Activities with start and finish dates spanning multiple blocks display continuation markers in subsequent blocks. Dragging an activity moves its date range; click a card or continuation to edit the exact dates.
 - Markdown/CSV roadmap transfers and whole-workspace backups with preview.
 - Copyable, plan-specific browser bookmarks, with recently edited plans in the roadmap library.
 - Polished read-only published roadmap pages with progress, quarter timeline, expandable activity details and copyable self-contained links.

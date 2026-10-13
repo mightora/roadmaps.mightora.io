@@ -13,11 +13,18 @@ const statusClass=s=>({'Planned':'planned','In progress':'progress','Done':'done
 const KEY='mightora-roadmap-v1';
 let roadmap,revision=0,mode='local',view='roadmap',saving=false,compact=false,dragId=null,lastFocus=null,toastTimer;
 let graphObserver;
+let timelineUnit='quarters';
+function blockStart(index){return timelineUnit==='weeks'?addDays(roadmap.startDate,index*7):addMonths(roadmap.startDate,index*(timelineUnit==='months'?1:3));}
+function blockCount(){if(timelineUnit!=='weeks')return roadmap.periodCount*(timelineUnit==='months'?3:1);const end=addMonths(roadmap.startDate,roadmap.periodCount*3);return Math.ceil((Date.parse(end+'T12:00:00Z')-Date.parse(roadmap.startDate+'T12:00:00Z'))/604800000);}
+function blockIndex(date){for(let i=0;i<blockCount();i++)if(date>=blockStart(i)&&date<blockStart(i+1))return i;return -1;}
+function blockTitle(i){if(timelineUnit==='quarters')return periodLabel(roadmap,i).title;if(timelineUnit==='months')return new Intl.DateTimeFormat('en-GB',{month:'short',year:'2-digit',timeZone:'UTC'}).format(new Date(blockStart(i)+'T12:00:00Z'));return 'Week '+(i+1);}
+function blockEnd(i){return addDays(blockStart(i+1),-1);}
+
 function toast(message,error=false){clearTimeout(toastTimer);$('#toast').textContent=message;$('#toast').className='toast'+(error?' error':'');$('#toast').hidden=false;toastTimer=setTimeout(()=>$('#toast').hidden=true,error?8000:3500);}
 function savedLabel(message,error=false){$('#save-indicator').textContent=message;$('#save-indicator').classList.toggle('error',error);}
 function currentSaveLabel(){return sharedPreview()?'Shared snapshot · not saved':communityRuntime()?'Saved in this browser':demoRuntime()?'Saved · demo workspace':'Saved to organisation';}
 async function load(){
-  await initialise({toast,open(record){roadmap=record.roadmap;revision=record.revision;mode='organisation';savedLabel(currentSaveLabel());render();},clear(){roadmap=null;revision=0;$('#canvas').innerHTML='<div class="no-results">Select or create a roadmap to begin.</div>';$('#stats').innerHTML='';$('#roadmap-title').textContent='Roadmap';},contextChange(){closeDrawer();$('#settings-dialog').close();$('#platform-dialog').close();},getRoadmap:()=>roadmap,getFilter:()=>({query:$('#search').value,status:$('#status-filter').value,view}),applyFilter(f){$('#search').value=f.query||'';$('#status-filter').value=f.status||'';view=f.view||'roadmap';render();}});
+  await initialise({toast,open(record){roadmap=record.roadmap;revision=record.revision;mode='organisation';timelineUnit=roadmap.client.startsWith('Everyday life')?'weeks':'quarters';savedLabel(currentSaveLabel());render();},clear(){roadmap=null;revision=0;$('#canvas').innerHTML='<div class="no-results">Select or create a roadmap to begin.</div>';$('#stats').innerHTML='';$('#roadmap-title').textContent='Roadmap';},contextChange(){closeDrawer();$('#settings-dialog').close();$('#platform-dialog').close();},getRoadmap:()=>roadmap,getFilter:()=>({query:$('#search').value,status:$('#status-filter').value,view}),applyFilter(f){$('#search').value=f.query||'';$('#status-filter').value=f.status||'';view=f.view||'roadmap';render();}});
 }
 async function commit(next){
   if(saving)throw new Error('A save is already in progress. Please try again shortly.');
@@ -42,7 +49,7 @@ function render(){
   $('#stats').innerHTML=stats.map(([label,value,caption,symbol],i)=>`<div class="stat"><div style="width:100%"><div class="stat-label">${label}</div><span class="stat-value">${value}</span><div class="stat-caption">${caption}</div>${i===3?`<div class="stat-track"><span style="width:${total?done/total*100:0}%"></span></div>`:''}</div><span class="stat-icon">${icon(symbol)}</span></div>`).join('');
   document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
   const visible=filtered();
-  $('#view-caption').textContent=view==='roadmap'?`${roadmap.tracks.length} workstreams · ${roadmap.periodCount} quarters · ${visible.length} activities`:view==='dependencies'?`${roadmap.activities.reduce((n,a)=>n+a.dependencies.length,0)} finish-to-start links · hover to trace a path`:`${visible.length} of ${all.length} activities`;
+  $('#view-caption').textContent=view==='roadmap'?`${roadmap.tracks.length} workstreams · ${blockCount()} ${timelineUnit} · ${visible.length} activities`:view==='dependencies'?`${roadmap.activities.reduce((n,a)=>n+a.dependencies.length,0)} finish-to-start links · hover to trace a path`:`${visible.length} of ${all.length} activities`;
   $('#footer-hint').textContent=view==='roadmap'?'Select a card to edit · drag to reschedule':view==='dependencies'?'Arrows point from prerequisite to successor':'Select an activity to edit it';
   $('#density').hidden=view!=='roadmap';
   graphObserver?.disconnect();
@@ -50,8 +57,8 @@ function render(){
 }
 function card(a,graph=false){
   const track=roadmap.tracks.find(t=>t.id===a.trackId),blocked=blockers(a,roadmap).length,conflicts=scheduleConflicts(a,roadmap).length;
-  const startQ=quarterOf(a.start,roadmap),endQ=quarterOf(a.end,roadmap);
-  return `<button type="button" class="activity-card" data-activity="${esc(a.id)}" ${graph?'':`draggable="${isEditor()}"`} style="--track-color:${track.color}" aria-label="${esc(a.title)}, ${esc(a.status)}, ${blocked} unfinished predecessors"><span class="activity-title">${esc(a.title)}</span><span class="card-labels"><span class="badge ${statusClass(a.status)}">${esc(a.status)}</span>${blocked&&a.status!=='Done'?`<span class="badge blocked" title="Unfinished prerequisites">${icon('dependencies')} Waiting</span>`:''}${conflicts?`<span class="badge conflict" title="The scheduled start overlaps a predecessor finish">${icon('alert')} Dates</span>`:''}${endQ>startQ?`<span class="badge">${icon("arrow-right")} Q${endQ+1}</span>`:''}</span><span class="card-meta"><span class="owner">${esc(a.owner||'Unassigned')}</span><span class="dep-count" title="Predecessor activities">${a.dependencies.length?icon('link')+' '+a.dependencies.length:formatDate(a.start)}</span></span>${graph?`<span class="track-meta">${esc(track.name)}</span>`:''}</button>`;
+  const startQ=blockIndex(a.start),endQ=blockIndex(a.end);
+  return `<button type="button" class="activity-card" data-activity="${esc(a.id)}" ${graph?'':`draggable="${isEditor()}"`} style="--track-color:${track.color}" aria-label="${esc(a.title)}, ${esc(a.status)}, ${blocked} unfinished predecessors"><span class="activity-title">${esc(a.title)}</span><span class="card-labels"><span class="badge ${statusClass(a.status)}">${esc(a.status)}</span>${blocked&&a.status!=='Done'?`<span class="badge blocked" title="Unfinished prerequisites">${icon('dependencies')} Waiting</span>`:''}${conflicts?`<span class="badge conflict" title="The scheduled start overlaps a predecessor finish">${icon('alert')} Dates</span>`:''}${endQ>startQ?`<span class="badge">${icon("arrow-right")} ${blockTitle(endQ)}</span>`:''}</span><span class="card-meta"><span class="owner">${esc(a.owner||'Unassigned')}</span><span class="dep-count" title="Predecessor activities">${a.dependencies.length?icon('link')+' '+a.dependencies.length:formatDate(a.start)}</span></span>${graph?`<span class="track-meta">${esc(track.name)}</span>`:''}</button>`;
 }
 function bindCards(container){
   container.querySelectorAll('[data-activity]').forEach(button=>{
@@ -61,14 +68,21 @@ function bindCards(container){
   });
 }
 function renderBoard(activities){
-  let html=`<div class="board ${compact?'compact':''}" style="--count:${roadmap.periodCount}"><div class="board-corner">WORKSTREAMS <span class="sr-only">Activity start quarter</span></div>`;
-  for(let i=0;i<roadmap.periodCount;i++){const p=periodLabel(roadmap,i);html+=`<div class="period"><span class="phase ${p.phase.toLowerCase()}">${p.phase}</span><div class="period-bottom"><strong>${esc(p.title)}</strong><small>${formatMonth(p.start)} – ${formatMonth(addMonths(p.start,2))}</small></div></div>`;}
+  const count=blockCount();
+  let html=`<div class="timeline-controls"><label for="timeline-unit">Time blocks</label><select id="timeline-unit"><option value="weeks" ${timelineUnit==='weeks'?'selected':''}>Weeks</option><option value="months" ${timelineUnit==='months'?'selected':''}>Months</option><option value="quarters" ${timelineUnit==='quarters'?'selected':''}>Quarters</option></select><span>Longer activities continue across blocks.</span></div><div class="board ${compact?'compact':''}" style="--count:${count}"><div class="board-corner">WORKSTREAMS</div>`;
+  for(let i=0;i<count;i++)html+=`<div class="period"><div class="period-bottom"><strong>${esc(blockTitle(i))}</strong><small>${formatDate(blockStart(i))} – ${formatDate(blockEnd(i))}</small></div></div>`;
   roadmap.tracks.forEach((t,n)=>{
     const trackActivities=activities.filter(a=>a.trackId===t.id);
     html+=`<div class="track-label" style="--track-color:${t.color}"><span class="track-line"></span><span class="track-index">${String(n+1).padStart(2,'0')}</span><div><strong class="track-name">${esc(t.name)}</strong><small class="track-meta">${trackActivities.length} activities</small></div></div>`;
-    for(let i=0;i<roadmap.periodCount;i++){const list=trackActivities.filter(a=>quarterOf(a.start,roadmap)===i).sort((a,b)=>a.start.localeCompare(b.start));html+=`<div class="cell" data-track="${esc(t.id)}" data-period="${i}">${list.map(a=>card(a)).join('')}${list.length?'':'<div class="empty-slot" aria-hidden="true">·</div>'}<button class="cell-add" data-add-track="${esc(t.id)}" data-add-period="${i}" aria-label="Add activity to ${esc(t.name)}, quarter ${i+1}">+ Add activity</button></div>`;}
+    for(let i=0;i<count;i++){
+      const list=trackActivities.filter(a=>blockIndex(a.start)===i).sort((a,b)=>a.start.localeCompare(b.start));
+      const ongoing=trackActivities.filter(a=>blockIndex(a.start)<i&&blockIndex(a.end)>=i);
+      html+=`<div class="cell" data-track="${esc(t.id)}" data-period="${i}">${list.map(a=>card(a)).join('')}${ongoing.map(a=>`<button type="button" class="activity-continuation" data-activity="${esc(a.id)}" style="--track-color:${t.color}" title="${esc(a.title)} continues through ${esc(formatDate(a.end))}">↳ ${esc(a.title)} <span>continues</span></button>`).join('')}${!list.length&&!ongoing.length?'<div class="empty-slot" aria-hidden="true">·</div>':''}<button class="cell-add" data-add-track="${esc(t.id)}" data-add-period="${i}" aria-label="Add activity to ${esc(t.name)}, ${esc(blockTitle(i))}">+ Add activity</button></div>`;
+    }
   });
-  $('#canvas').innerHTML=html+'</div>';bindCards($('#canvas'));
+  $('#canvas').innerHTML=html+'</div>';
+  $('#timeline-unit').onchange=e=>{timelineUnit=e.target.value;render();};
+  bindCards($('#canvas'));
   $('#canvas').querySelectorAll('[data-add-track]').forEach(b=>{b.hidden=!isEditor();b.addEventListener('click',()=>openActivity(null,b.dataset.addTrack,Number(b.dataset.addPeriod)));});
   $('#canvas').querySelectorAll('.cell').forEach(cell=>{
     cell.addEventListener('dragover',e=>{if(!dragId)return;e.preventDefault();cell.classList.add('drag-over');e.dataTransfer.dropEffect='move';});
@@ -76,9 +90,10 @@ function renderBoard(activities){
     cell.addEventListener('drop',async e=>{
       e.preventDefault();cell.classList.remove('drag-over');if(!dragId||saving)return;
       const a=roadmap.activities.find(a=>a.id===dragId);if(!a)return;
-      const delta=(Number(cell.dataset.period)-quarterOf(a.start,roadmap))*3;
-      const moved={...a,trackId:cell.dataset.track,start:addMonths(a.start,delta),end:addMonths(a.end,delta)};
-      try{await commit(updateActivity(roadmap,moved));toast(scheduleConflicts(moved,roadmap).length?'Activity moved. Review the flagged predecessor dates.':'Activity moved.');}catch(error){toast(error.message,true);}
+      const newStart=blockStart(Number(cell.dataset.period));
+      const delta=Math.round((Date.parse(newStart+'T12:00:00Z')-Date.parse(a.start+'T12:00:00Z'))/86400000);
+      const moved={...a,trackId:cell.dataset.track,start:newStart,end:addDays(a.end,delta)};
+      try{await commit(updateActivity(roadmap,moved));toast('Activity moved.');}catch(error){toast(error.message,true);}
     });
   });
 }
@@ -123,8 +138,8 @@ function openActivity(id=null,trackId=null,period=0){
   if(!roadmap)return;
   if(!id&&!isEditor())return;
   const existing=roadmap.activities.find(a=>a.id===id);
-  const start=addMonths(roadmap.startDate,period*3);
-  const end=[addDays(start,23),addDays(addMonths(roadmap.startDate,roadmap.periodCount*3),-1)].sort()[0];
+  const start=blockStart(period);
+  const end=[blockEnd(period),addDays(addMonths(roadmap.startDate,roadmap.periodCount*3),-1)].sort()[0];
   const a=existing||{id:newId(),title:'',description:'',trackId:trackId||roadmap.tracks[0].id,owner:'',start,end,status:'Planned',dependencies:[]};
   const affected=existing?downstream(a.id,roadmap):[],successors=roadmap.activities.filter(b=>b.dependencies.includes(a.id));
   const unavailable=new Set(affected);
