@@ -10,10 +10,10 @@
     "startDate": "2026-12-01",
     "periodCount": 4,
     "quarterLabels": [
-      "Plan menu",
-      "Buy ingredients",
-      "Prepare ahead",
-      "Cook & serve"
+      "Winter",
+      "Spring",
+      "Summer",
+      "Autumn"
     ],
     "tracks": [
       {
@@ -153,10 +153,10 @@
       },
       {
         "id": "christmas-dinner-a9",
-        "title": "Serve and enjoy",
+        "title": "Enjoy the leftovers",
         "trackId": "christmas-dinner-t3",
-        "start": "2026-12-25",
-        "end": "2026-12-25",
+        "start": "2026-12-26",
+        "end": "2026-12-26",
         "status": "Planned",
         "owner": "",
         "description": "A simple example you can customise for your own plans.",
