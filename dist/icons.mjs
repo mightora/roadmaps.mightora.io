@@ -1,0 +1,36 @@
+// Mightora's local, dependency-free icon set. Every icon uses the same 24px
+// rounded 1.8px stroke, inherits the current brand colour and is decorative.
+const PATHS=Object.freeze({
+  "roadmap": "<rect x=\"3\" y=\"3\" width=\"8\" height=\"8\" rx=\"1.5\"/><rect x=\"13\" y=\"3\" width=\"8\" height=\"5\" rx=\"1.5\"/><rect x=\"13\" y=\"10\" width=\"8\" height=\"11\" rx=\"1.5\"/><rect x=\"3\" y=\"13\" width=\"8\" height=\"8\" rx=\"1.5\"/>",
+  "dependencies": "<circle cx=\"6\" cy=\"5\" r=\"2\"/><circle cx=\"18\" cy=\"12\" r=\"2\"/><circle cx=\"6\" cy=\"19\" r=\"2\"/><path d=\"M8 5h3a4 4 0 0 1 4 4v1M8 19h3a4 4 0 0 0 4-4v-1\"/>",
+  "activities": "<path d=\"m3 6 1.5 1.5L7 5M10 6h11m-18 6 1.5 1.5L7 11m3 1h11m-18 6 1.5 1.5L7 17m3 1h11\"/>",
+  "library": "<rect x=\"4\" y=\"4\" width=\"16\" height=\"16\" rx=\"2\"/><path d=\"M9 4v16m4-11h4m-4 4h4m-4 4h3\"/>",
+  "workstreams": "<rect x=\"3\" y=\"4\" width=\"5\" height=\"16\" rx=\"1\"/><rect x=\"10\" y=\"4\" width=\"5\" height=\"16\" rx=\"1\"/><rect x=\"17\" y=\"4\" width=\"4\" height=\"16\" rx=\"1\"/>",
+  "portfolio": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"14\" rx=\"2\"/><path d=\"M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12c4 3 14 3 18 0m-11 1h4\"/>",
+  "reports": "<path d=\"M3 3v18h18M7 17v-5m5 5V7m5 10V9\"/>",
+  "backup": "<ellipse cx=\"12\" cy=\"5\" rx=\"8\" ry=\"3\"/><path d=\"M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3 2.1 0 4-.3 5.4-.9m1.6-3.6 2 2-2 2m2-2h-6\"/>",
+  "documentation": "<path d=\"M12 6c-2.6-1.7-5.4-2-9-1v14c3.6-1 6.4-.7 9 1m0-14c2.6-1.7 5.4-2 9-1v14c-3.6-1-6.4-.7-9 1m0-14v14\"/>",
+  "settings": "<path d=\"M4 7h16M4 17h16\"/><circle cx=\"9\" cy=\"7\" r=\"2.5\" fill=\"var(--mi-control-fill, #173e34)\"/><circle cx=\"15\" cy=\"17\" r=\"2.5\" fill=\"var(--mi-control-fill, #173e34)\"/>",
+  "share": "<circle cx=\"18\" cy=\"5\" r=\"2\"/><circle cx=\"6\" cy=\"12\" r=\"2\"/><circle cx=\"18\" cy=\"19\" r=\"2\"/><path d=\"m8 11 8-5M8 13l8 5\"/>",
+  "publish": "<path d=\"m12 3 1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Zm7 13 .8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8L19 16ZM4 17l.7 1.3L6 19l-1.3.7L4 21l-.7-1.3L2 19l1.3-.7L4 17Z\"/>",
+  "download": "<path d=\"M12 3v12m-4-4 4 4 4-4M4 17v4h16v-4\"/>",
+  "plus": "<path d=\"M12 5v14M5 12h14\"/>",
+  "bookmark": "<path d=\"M6 4h12v17l-6-4-6 4V4Z\"/>",
+  "search": "<circle cx=\"10.5\" cy=\"10.5\" r=\"6.5\"/><path d=\"m16 16 5 5\"/>",
+  "trending": "<path d=\"m3 17 6-6 4 4 8-8m-7 0h7v7\"/>",
+  "check": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"m8 12 3 3 5-6\"/>",
+  "link": "<path d=\"M10 13a5 5 0 0 0 7 .4l2-2a5 5 0 0 0-7-7l-1.1 1.1M14 11a5 5 0 0 0-7-.4l-2 2a5 5 0 0 0 7 7l1.1-1.1\"/>",
+  "arrow-up": "<path d=\"m12 19 0-14m-6 6 6-6 6 6\"/>",
+  "arrow-down": "<path d=\"M12 5v14m-6-6 6 6 6-6\"/>",
+  "arrow-up-right": "<path d=\"M6 18 18 6M8 6h10v10\"/>",
+  "arrow-right": "<path d=\"M4 12h16m-6-6 6 6-6 6\"/>",
+  "alert": "<path d=\"M12 3 2.5 20h19L12 3Zm0 6v5m0 3v.5\"/>",
+  "shield": "<path d=\"m12 2 8 4v6c0 5-3.4 8-8 10-4.6-2-8-5-8-10V6l8-4Zm-4 10 3 3 5-5\"/>",
+  "code": "<path d=\"m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16\"/>",
+  "close": "<path d=\"M5 5l14 14M19 5 5 19\"/>"
+});
+export const ICON_NAMES=Object.freeze(Object.keys(PATHS));
+export function icon(name){
+  if(!Object.hasOwn(PATHS,name))throw new Error('Unknown Mightora icon: '+name);
+  return '<svg class="mi-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">'+PATHS[name]+'</svg>';
+}
