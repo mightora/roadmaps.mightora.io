@@ -115,5 +115,16 @@
   <dialog id="confirm-dialog" class="confirm-dialog"><h2 id="confirm-title"></h2><p id="confirm-message"></p><div class="dialog-actions"><button id="confirm-cancel" class="button">Cancel</button><button id="confirm-ok" class="button danger">Delete activity</button></div></dialog>
   <input type="file" id="import-file" accept=".md,.markdown,.csv,text/markdown,text/csv" hidden>
   <div id="toast" class="toast" role="status" hidden></div>
+
+<!-- Cloudflare Web Analytics: production only; no network traffic for local or offline copies -->
+<script>
+  if (window.location.hostname === 'roadmaps.mightora.io') {
+    const analyticsBeacon = document.createElement('script');
+    analyticsBeacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+    analyticsBeacon.defer = true;
+    analyticsBeacon.setAttribute('data-cf-beacon', '{"token":"54355574b7594d3d9d9946038d33925a","spa":true}');
+    document.head.appendChild(analyticsBeacon);
+  }
+</script>
 </body>
 </html>
